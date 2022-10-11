@@ -1,5 +1,6 @@
 package controller;
 
+import exceptions.CommandException;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -16,16 +17,22 @@ public class AdminController {
         switch (command) {
             case "help": {
                 help(args);
+                break;
             }
             case "register": {
                 register(args);
+                break;
             }
             case "members": {
                 members(args);
+                break;
             }
             case "loans": {
                 loans(args);
+                break;
             }
+            default:
+                throw new CommandException();
         }
     }
 

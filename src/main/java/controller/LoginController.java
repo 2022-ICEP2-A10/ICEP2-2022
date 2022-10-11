@@ -1,6 +1,7 @@
 package controller;
 
 import exceptions.ArgumentException;
+import exceptions.CommandException;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -17,16 +18,22 @@ public class LoginController {
         switch (command) {
             case "help": {
                 help(args);
+                break;
             }
             case "login": {
                 login(args);
+                break;
             }
             case "signup": {
                 signup(args);
+                break;
             }
             case "exit": {
                 exit(args);
+                break;
             }
+            default:
+                throw new CommandException();
         }
     }
 

@@ -1,5 +1,6 @@
 package controller;
 
+import exceptions.CommandException;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -16,23 +17,30 @@ public class MemberController {
         switch (command) {
             case "help": {
                 help(args);
+                break;
             }
             case "checkout": {
                 checkout(args);
+                break;
             }
             case "return": {
                 returnBook(args);
+                break;
             }
             case "search": {
                 search(args);
+                break;
             }
             case "myloan": {
                 myloan(args);
+                break;
             }
             case "logout": {
                 logout(args);
+                break;
             }
-
+            default:
+                throw new CommandException();
         }
     }
 
