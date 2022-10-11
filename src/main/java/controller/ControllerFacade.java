@@ -16,25 +16,16 @@ public class ControllerFacade {
     public void execute(String command, String[] args) {
         switch (Status.getCurStatus()) {
             case LOGIN: {
-                if (loginController.contains(command)) {
-                    loginController.execute(command, args);
-                } else {
-                    throw new CommandException();
-                }
+                loginController.execute(command, args);
+                break;
             }
             case ADMIN: {
-                if (adminController.contains(command)) {
-                    adminController.execute(command, args);
-                } else {
-                    throw new CommandException();
-                }
+                adminController.execute(command, args);
+                break;
             }
             case MEMBER: {
-                if (memberController.contains(command)) {
-                    memberController.execute(command, args);
-                } else {
-                    throw new CommandException();
-                }
+                memberController.execute(command, args);
+                break;
             }
         }
     }
