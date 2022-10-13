@@ -7,6 +7,7 @@ import controller.MemberController;
 import domain.Book;
 import domain.Checkout;
 import domain.Member;
+import domain.UserType;
 import repository.BookRepository;
 import repository.CheckoutRepository;
 import repository.MemberRepository;
@@ -68,11 +69,13 @@ public class AppConfig {
                     boolean possible = split[2].equals("true");
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
                     LocalDateTime time = LocalDateTime.parse(split[3], formatter);
+                    UserType userType = (split[4].equals("member")) ? UserType.MEMBER : UserType.ADMIN;
                     Member member = Member.builder()
                             .userid(split[0])
                             .password(split[1])
                             .possible(possible)
                             .possibleDate(time)
+                            .userType(userType)
                             .build();
                     members.put(member.getUserid(), member);
                 }
