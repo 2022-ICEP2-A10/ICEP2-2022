@@ -2,6 +2,7 @@ package repository;
 
 import domain.Book;
 import lombok.RequiredArgsConstructor;
+import util.Sequence;
 
 import java.util.List;
 import java.util.Map;
@@ -12,12 +13,14 @@ import java.util.stream.Collectors;
 public class BookRepository {
 
     private final Map<Long, Book> books;
+    private final Sequence sequence;
 
     public Optional<Book> findById(Long id) {
         return Optional.ofNullable(books.get(id));
     }
 
     public void save(Book book) {
+        book.setId(sequence.nextSequence());
         books.put(book.getId(), book);
     }
 
