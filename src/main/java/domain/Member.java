@@ -16,4 +16,5 @@ public class Member {
     private String password;
     private boolean possible;
     private LocalDateTime possibleDate;
+    private UserType userType;
 }
