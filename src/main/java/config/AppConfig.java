@@ -8,9 +8,11 @@ import domain.Book;
 import domain.Checkout;
 import domain.Member;
 import domain.UserType;
+import presentation.MainPrompt;
 import repository.BookRepository;
 import repository.CheckoutRepository;
 import repository.MemberRepository;
+import util.CommandParser;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -20,6 +22,8 @@ import java.util.Map;
 
 public class AppConfig {
 
+    private CommandParser commandParser;
+    private MainPrompt mainPrompt;
     private ControllerFacade controllerFacade;
     private AdminController adminController;
     private LoginController loginController;
@@ -28,6 +32,20 @@ public class AppConfig {
     private MemberRepository memberRepository;
     private BookRepository bookRepository;
     private CheckoutRepository checkoutRepository;
+
+    public MainPrompt mainPrompt() {
+        if (mainPrompt == null) {
+            mainPrompt = new MainPrompt(commandParser(), controllerFacade());
+        }
+        return mainPrompt;
+    }
+
+    public CommandParser commandParser() {
+        if (commandParser == null) {
+            commandParser = new CommandParser();
+        }
+        return commandParser;
+    }
 
     public ControllerFacade controllerFacade() {
         if (controllerFacade == null) {
