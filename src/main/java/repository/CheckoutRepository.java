@@ -28,7 +28,7 @@ public class CheckoutRepository {
                 .collect(Collectors.toList());
     }
 
-    public void delete(Long id) {
+    public void deleteById(Long id) {
         checkouts.remove(id);
     }
 
