@@ -7,6 +7,15 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+/**
+ * Member 클래스 빌더 패턴 사용 예시
+ * Member member = Member.builder()
+ *           .userid("user123")
+ *           .password("pswd123")
+ *           .possible(true)
+ *           .userType(UserType.MEMBER)
+ *           .build()
+ */
 @Builder
 @Setter
 @Getter
