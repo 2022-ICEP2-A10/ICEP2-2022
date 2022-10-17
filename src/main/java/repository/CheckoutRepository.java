@@ -2,6 +2,7 @@ package repository;
 
 import domain.Checkout;
 import lombok.RequiredArgsConstructor;
+import util.Sequence;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +13,10 @@ import java.util.stream.Collectors;
 public class CheckoutRepository {
 
     private final Map<Long, Checkout> checkouts;
+    private final Sequence sequence;
 
     public void save(Checkout checkout) {
+        checkout.setId(sequence.nextSequence());
         checkouts.put(checkout.getId(), checkout);
     }
 
