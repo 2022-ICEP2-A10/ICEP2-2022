@@ -21,4 +21,9 @@ public class Checkout {
     private String userid;
     private Long bookid;
     private LocalDateTime checkoutDate;
+
+    @Override
+    public String toString() {
+        return id + "\t" + userid + "\t" + bookid + "\t" + checkoutDate;
+    }
 }

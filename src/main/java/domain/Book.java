@@ -18,4 +18,9 @@ public class Book {
     private Long id;
     private String title;
     private boolean isActive;
+
+    @Override
+    public String toString() {
+        return id + "\t" + title + "\t" + isActive;
+    }
 }
