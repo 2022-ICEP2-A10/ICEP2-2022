@@ -33,14 +33,9 @@ public class MemberRepository implements FileBaseDatabase {
     public void destroy() {
         try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream("./data/members")))) {
-            members.values()
-                    .forEach(member -> {
-                        try {
-                            writer.write(member.toString());
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    });
+            for (Member member : members.values()) {
+                writer.write(member.toString());
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
