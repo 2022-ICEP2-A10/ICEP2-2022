@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-public class CheckoutRepository {
+public class CheckoutRepository implements FileBaseRepository {
 
     private final Map<Long, Checkout> checkouts;
     private final Sequence sequence;
@@ -35,4 +35,8 @@ public class CheckoutRepository {
         checkouts.remove(id);
     }
 
+    @Override
+    public void destroy() {
+
+    }
 }

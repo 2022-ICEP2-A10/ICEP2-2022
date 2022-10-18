@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public class MemberRepository {
+public class MemberRepository implements FileBaseRepository {
 
     private final Map<String, Member> members;
 
@@ -25,4 +25,8 @@ public class MemberRepository {
         return new ArrayList<>(members.values());
     }
 
+    @Override
+    public void destroy() {
+
+    }
 }
