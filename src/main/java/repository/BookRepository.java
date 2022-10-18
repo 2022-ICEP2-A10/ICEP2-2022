@@ -38,14 +38,9 @@ public class BookRepository implements FileBaseDatabase {
     public void destroy() {
         try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream("./data/books")))) {
-            books.values()
-                    .forEach(book -> {
-                        try {
-                            writer.write(book.toString());
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    });
+            for (Book book : books.values()) {
+                writer.write(book.toString());
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

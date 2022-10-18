@@ -43,14 +43,9 @@ public class CheckoutRepository implements FileBaseDatabase {
     public void destroy() {
         try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream("./data/checkouts")))) {
-            checkouts.values()
-                    .forEach(checkout -> {
-                        try {
-                            writer.write(checkout.toString());
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    });
+            for (Checkout checkout : checkouts.values()) {
+                writer.write(checkout.toString());
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
