@@ -3,13 +3,17 @@ package repository;
 import domain.Member;
 import lombok.RequiredArgsConstructor;
 
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public class MemberRepository implements FileBaseRepository {
+public class MemberRepository implements FileBaseDatabase {
 
     private final Map<String, Member> members;
 
@@ -27,6 +31,18 @@ public class MemberRepository implements FileBaseRepository {
 
     @Override
     public void destroy() {
-
+        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream("./data/books")))) {
+            members.values()
+                    .forEach(member -> {
+                        try {
+                            writer.write(member.toString());
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
