@@ -98,14 +98,7 @@ public class AppConfig {
                     members.put(member.getUserid(), member);
                 }
             } catch (IOException e) {
-                System.out.println("data/members 파일 없어");
-                File memberFile = new File("./data/members");
-                memberFile.getParentFile().mkdirs();
-                try {
-                    memberFile.createNewFile();
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
+                makeDatafile("data/members 파일 없어", "./data/members");
             }
 
             memberRepository = new MemberRepository(members);
@@ -133,14 +126,7 @@ public class AppConfig {
                     books.put(book.getId(), book);
                 }
             } catch (IOException e) {
-                System.out.println("data/members 파일 없어");
-                File memberFile = new File("./data/books");
-                memberFile.getParentFile().mkdirs();
-                try {
-                    memberFile.createNewFile();
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
+                makeDatafile("data/books 파일 없어", "./data/books");
             }
             bookRepository = new BookRepository(books);
         }
@@ -171,18 +157,22 @@ public class AppConfig {
                     checkouts.put(checkout.getId(), checkout);
                 }
             } catch (IOException e) {
-                System.out.println("data/checkouts 파일 없어");
-                File memberFile = new File("./data/checkouts");
-                memberFile.getParentFile().mkdirs();
-                try {
-                    memberFile.createNewFile();
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
+                makeDatafile("data/checkouts 파일 없어", "./data/checkouts");
             }
             checkoutRepository = new CheckoutRepository(checkouts);
         }
 
         return checkoutRepository;
+    }
+
+    private void makeDatafile(String log, String pathname) {
+        System.out.println(log);
+        File memberFile = new File(pathname);
+        memberFile.getParentFile().mkdirs();
+        try {
+            memberFile.createNewFile();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 }
