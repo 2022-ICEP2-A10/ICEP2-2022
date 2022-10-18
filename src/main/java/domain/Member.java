@@ -26,4 +26,9 @@ public class Member {
     private boolean possible;
     private LocalDateTime possibleDate;
     private UserType userType;
+
+    @Override
+    public String toString() {
+        return userid + "\t" + password + "\t" + possible + "\t" + possibleDate + "\t" + userType;
+    }
 }
