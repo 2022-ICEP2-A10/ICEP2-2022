@@ -13,6 +13,7 @@ import repository.BookRepository;
 import repository.CheckoutRepository;
 import repository.MemberRepository;
 import util.CommandParser;
+import util.Sequence;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -32,6 +33,8 @@ public class AppConfig {
     private MemberRepository memberRepository;
     private BookRepository bookRepository;
     private CheckoutRepository checkoutRepository;
+
+    private Sequence sequence;
 
     public MainPrompt mainPrompt() {
         if (mainPrompt == null) {
@@ -73,6 +76,20 @@ public class AppConfig {
 
         }
         return memberController;
+    }
+
+    public Sequence sequence() {
+        if (sequence == null) {
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(
+                    new FileInputStream("./data/next_sequence")))) {
+                String line = reader.readLine();
+                long nextSequence = Long.parseLong(line);
+                sequence = new Sequence(nextSequence);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return sequence;
     }
 
     public MemberRepository memberRepository() {
@@ -128,7 +145,7 @@ public class AppConfig {
             } catch (IOException e) {
                 makeDatafile("data/books 파일 없어", "./data/books");
             }
-            bookRepository = new BookRepository(books);
+            bookRepository = new BookRepository(books, sequence());
         }
 
         return bookRepository;
@@ -159,7 +176,7 @@ public class AppConfig {
             } catch (IOException e) {
                 makeDatafile("data/checkouts 파일 없어", "./data/checkouts");
             }
-            checkoutRepository = new CheckoutRepository(checkouts);
+            checkoutRepository = new CheckoutRepository(checkouts, sequence());
         }
 
         return checkoutRepository;
