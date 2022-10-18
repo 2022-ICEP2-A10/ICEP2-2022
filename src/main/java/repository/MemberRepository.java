@@ -32,7 +32,7 @@ public class MemberRepository implements FileBaseDatabase {
     @Override
     public void destroy() {
         try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream("./data/books")))) {
+                new FileOutputStream("./data/members")))) {
             members.values()
                     .forEach(member -> {
                         try {
