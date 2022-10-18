@@ -4,13 +4,14 @@ import domain.Book;
 import lombok.RequiredArgsConstructor;
 import util.Sequence;
 
+import java.io.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-public class BookRepository {
+public class BookRepository implements FileBaseDatabase {
 
     private final Map<Long, Book> books;
     private final Sequence sequence;
@@ -31,5 +32,20 @@ public class BookRepository {
                 .collect(Collectors.toList());
     }
 
-
+    @Override
+    public void destroy() {
+        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream("./data/books")))) {
+            books.values()
+                    .forEach(book -> {
+                        try {
+                            writer.write(book.toString());
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
