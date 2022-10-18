@@ -42,7 +42,7 @@ public class CheckoutRepository implements FileBaseDatabase {
     @Override
     public void destroy() {
         try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream("./data/books")))) {
+                new FileOutputStream("./data/checkouts")))) {
             checkouts.values()
                     .forEach(checkout -> {
                         try {

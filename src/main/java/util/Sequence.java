@@ -19,7 +19,7 @@ public class Sequence implements FileBaseDatabase {
     @Override
     public void destroy() {
         try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream("./data/books")))) {
+                new FileOutputStream("./data/next_sequence")))) {
             writer.write(sequence.toString());
         } catch (IOException e) {
             throw new RuntimeException(e);
