@@ -21,7 +21,9 @@ public class BookRepository implements FileBaseDatabase {
     }
 
     public void save(Book book) {
-        book.setId(sequence.nextSequence());
+        if (book.getId() == null) {
+            book.setId(sequence.nextSequence());
+        }
         books.put(book.getId(), book);
     }
 
