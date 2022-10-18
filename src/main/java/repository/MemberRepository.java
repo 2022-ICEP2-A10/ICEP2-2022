@@ -35,6 +35,7 @@ public class MemberRepository implements FileBaseDatabase {
                 new FileOutputStream("./data/members")))) {
             for (Member member : members.values()) {
                 writer.write(member.toString());
+                writer.newLine();
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
