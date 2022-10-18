@@ -40,6 +40,7 @@ public class BookRepository implements FileBaseDatabase {
                 new FileOutputStream("./data/books")))) {
             for (Book book : books.values()) {
                 writer.write(book.toString());
+                writer.newLine();
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

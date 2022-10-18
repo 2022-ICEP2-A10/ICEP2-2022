@@ -45,6 +45,7 @@ public class CheckoutRepository implements FileBaseDatabase {
                 new FileOutputStream("./data/checkouts")))) {
             for (Checkout checkout : checkouts.values()) {
                 writer.write(checkout.toString());
+                writer.newLine();
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
