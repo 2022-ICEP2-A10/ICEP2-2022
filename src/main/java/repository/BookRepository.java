@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-public class BookRepository implements FileBaseRepository {
+public class BookRepository implements FileBaseDatabase {
 
     private final Map<Long, Book> books;
     private final Sequence sequence;
