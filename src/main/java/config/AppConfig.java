@@ -86,7 +86,9 @@ public class AppConfig {
                 long nextSequence = Long.parseLong(line);
                 sequence = new Sequence(nextSequence);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                makeDatafile("./data/next_sequence 없음", "./data/next_sequence");
+            } catch (NumberFormatException e) {
+                sequence = new Sequence(1L);
             }
         }
         return sequence;
