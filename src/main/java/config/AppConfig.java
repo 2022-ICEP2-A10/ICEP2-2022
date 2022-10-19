@@ -96,23 +96,24 @@ public class AppConfig {
     }
 
     public MemberRepository memberRepository() {
-
         if (memberRepository == null) {
             Map<String, Member> members = new LinkedHashMap<>();
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(
                     new FileInputStream("./data/members")))) {
+
                 String line;
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
                 while ((line = reader.readLine()) != null) {
                     String[] split = line.split("\t");
                     boolean possible = Boolean.parseBoolean(split[2]);
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                     LocalDateTime time;
                     try {
                         time = LocalDateTime.parse(split[3], formatter);
                     } catch (DateTimeParseException e) {
                         time = null;
                     }
-                    UserType userType = (split[4].equals("member")) ? UserType.MEMBER : UserType.ADMIN;
+                    UserType userType = (split[4].equals("ADMIN")) ? UserType.ADMIN : UserType.MEMBER;
                     Member member = Member.builder()
                             .userid(split[0])
                             .password(split[1])
