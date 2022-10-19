@@ -87,7 +87,7 @@ public class AppConfig {
                 long nextSequence = Long.parseLong(line);
                 sequence = new Sequence(nextSequence);
             } catch (IOException e) {
-                makeDatafile("./data/next_sequence 없음", "./data/next_sequence");
+                makeDatafile("./data/next_sequence");
             } catch (NumberFormatException e) {
                 sequence = new Sequence(1L);
             }
@@ -124,7 +124,7 @@ public class AppConfig {
                     members.put(member.getUserid(), member);
                 }
             } catch (IOException e) {
-                makeDatafile("data/members 파일 없어", "./data/members");
+                makeDatafile("./data/members");
             }
 
             memberRepository = new MemberRepository(members);
@@ -152,7 +152,7 @@ public class AppConfig {
                     books.put(book.getId(), book);
                 }
             } catch (IOException e) {
-                makeDatafile("data/books 파일 없어", "./data/books");
+                makeDatafile("./data/books");
             }
             bookRepository = new BookRepository(books, sequence());
         }
@@ -183,7 +183,7 @@ public class AppConfig {
                     checkouts.put(checkout.getId(), checkout);
                 }
             } catch (IOException e) {
-                makeDatafile("data/checkouts 파일 없어", "./data/checkouts");
+                makeDatafile("./data/checkouts");
             }
             checkoutRepository = new CheckoutRepository(checkouts, sequence());
         }
@@ -191,12 +191,12 @@ public class AppConfig {
         return checkoutRepository;
     }
 
-    private void makeDatafile(String log, String pathname) {
-        System.out.println(log);
-        File memberFile = new File(pathname);
-        memberFile.getParentFile().mkdirs();
+    private void makeDatafile(String pathname) {
+        System.out.println(pathname + " 경로 없음");
+        File file = new File(pathname);
+        file.getParentFile().mkdirs();
         try {
-            memberFile.createNewFile();
+            file.createNewFile();
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
