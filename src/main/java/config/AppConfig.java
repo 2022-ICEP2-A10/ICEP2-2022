@@ -165,13 +165,15 @@ public class AppConfig {
             Map<Long, Checkout> checkouts = new LinkedHashMap<>();
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(
                     new FileInputStream("./data/checkouts")))) {
+
                 String line;
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+
                 while ((line = reader.readLine()) != null) {
                     String[] split = line.split("\t");
                     long checkoutid = Long.parseLong(split[0]);
                     String memberid = split[1];
                     long bookid = Long.parseLong(split[2]);
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
                     LocalDateTime time = LocalDateTime.parse(split[3], formatter);
 
                     Checkout checkout = Checkout.builder()
