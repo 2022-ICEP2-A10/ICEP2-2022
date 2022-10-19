@@ -18,6 +18,7 @@ import util.Sequence;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -104,8 +105,13 @@ public class AppConfig {
                 while ((line = reader.readLine()) != null) {
                     String[] split = line.split("\t");
                     boolean possible = Boolean.parseBoolean(split[2]);
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
-                    LocalDateTime time = LocalDateTime.parse(split[3], formatter);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                    LocalDateTime time;
+                    try {
+                        time = LocalDateTime.parse(split[3], formatter);
+                    } catch (DateTimeParseException e) {
+                        time = null;
+                    }
                     UserType userType = (split[4].equals("member")) ? UserType.MEMBER : UserType.ADMIN;
                     Member member = Member.builder()
                             .userid(split[0])
