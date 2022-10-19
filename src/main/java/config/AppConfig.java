@@ -113,7 +113,7 @@ public class AppConfig {
                     } catch (DateTimeParseException e) {
                         time = null;
                     }
-                    UserType userType = (split[4].equals("ADMIN")) ? UserType.ADMIN : UserType.MEMBER;
+                    UserType userType = UserType.valueOf(split[4]);
                     Member member = Member.builder()
                             .userid(split[0])
                             .password(split[1])
