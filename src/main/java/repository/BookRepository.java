@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import util.Sequence;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -25,6 +26,10 @@ public class BookRepository implements FileBaseDatabase {
             book.setId(sequence.nextSequence());
         }
         books.put(book.getId(), book);
+    }
+
+    public List<Book> findAll() {
+        return new ArrayList<>(books.values());
     }
 
     public List<Book> findAllByTitle(String title) {
