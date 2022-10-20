@@ -7,11 +7,6 @@ import java.util.List;
 
 @RequiredArgsConstructor
 public class MemberController {
-    private final List<String> memberCommands = List.of("help", "checkout", "return", "search", "myloan", "logout");
-
-    public boolean contains(String command) {
-        return memberCommands.contains(command);
-    }
 
     public void execute(String command, String[] args) {
         switch (command) {

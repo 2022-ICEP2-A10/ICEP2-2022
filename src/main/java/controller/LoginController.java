@@ -10,11 +10,6 @@ import java.util.List;
 
 @RequiredArgsConstructor
 public class LoginController {
-    private final List<String> loginCommands = List.of("help", "login", "signup", "exit");
-
-    public boolean contains(String command) {
-        return loginCommands.contains(command);
-    }
 
     public void execute(String command, String[] args) {
         switch (command) {
