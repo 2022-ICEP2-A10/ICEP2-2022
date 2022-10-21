@@ -106,7 +106,7 @@ public class Librarian {
 	}
 
 	// 도서 등록
-	public void regist_Book(String[] bookname) throws IOException {
+	public void regist_Book(String[] bookname) {
 		// 비정상 종료 전 저장
 		if (bookname.length <= 0) {
 			System.out.println("인자의 개수가 잘못되었습니다.");

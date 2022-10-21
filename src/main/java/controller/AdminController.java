@@ -24,7 +24,7 @@ public class AdminController {
 
 
 	
-    public void execute(String command, String[] args) throws IOException {
+    public void execute(String command, String[] args) {
         switch (command) {
             case "help": {
                 help(args);
@@ -56,7 +56,7 @@ public class AdminController {
 
     }
 
-    private void register(String[] args) throws IOException {
+    private void register(String[] args) {
     	lib.regist_Book(args);
     }
 
