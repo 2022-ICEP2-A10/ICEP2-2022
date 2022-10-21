@@ -12,6 +12,7 @@ import domain.Member;
 import repository.BookRepository;
 import repository.CheckoutRepository;
 import repository.MemberRepository;
+import util.Sequence;
 
 import java.io.*;
 import java.nio.Buffer;
@@ -29,6 +30,7 @@ public class Librarian {
 	private final BookRepository books;
 	private final MemberRepository memberRepository;
 	private final CheckoutRepository checkoutRepository;
+	private final Sequence sequence;
 	
 
 
@@ -138,13 +140,14 @@ public class Librarian {
         }
 		else {
 			System.out.println("로그아웃 되었습니다.");
-			books.destroy();
-			Status.changeStatus(StatusType.LOGIN);	
+			Status.changeStatus(StatusType.LOGIN);
 		}
 
 	}
 	public void exit(String[] args) {
-		System.out.println("종료 되었습니다.");
 		books.destroy();
+		checkoutRepository.destroy();
+		memberRepository.destroy();
+		sequence.destroy();
 	}
 }

@@ -74,7 +74,7 @@ public class AppConfig {
    
     public Librarian makeLibrarian() {
     	if (librarian == null) {
-        	librarian=new Librarian(bookRepository(), memberRepository(), checkoutRepository());
+        	librarian=new Librarian(bookRepository(), memberRepository(), checkoutRepository(), sequence());
         }
     	return librarian;
     }
@@ -104,7 +104,7 @@ public class AppConfig {
 
     public CheckoutService checkoutService() {
         if (checkoutService == null) {
-            checkoutService = new CheckoutService(bookRepository(), memberRepository(), checkoutRepository());
+            checkoutService = new CheckoutService(bookRepository(), checkoutRepository());
         }
         return checkoutService;
     }

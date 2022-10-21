@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
 public class CheckoutService {
 
     private final BookRepository bookRepository;
-    private final MemberRepository memberRepository;
     private final CheckoutRepository checkoutRepository;
     public void checkout(String[] args) {
     	long checkoutID;
