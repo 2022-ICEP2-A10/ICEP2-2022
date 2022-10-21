@@ -2,28 +2,13 @@ package controller;
 
 import exceptions.CommandException;
 import librarian.Librarian;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
-import repository.BookRepository;
-import repository.CheckoutRepository;
-import repository.MemberRepository;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import domain.Checkout;
-import domain.Member;
-import domain.Status;
-
 
 @RequiredArgsConstructor
 public class AdminController {
 
 	private final Librarian lib;
 
-
-	
     public void execute(String command, String[] args) {
         switch (command) {
             case "help": {
