@@ -24,7 +24,7 @@ public class CheckoutService {
     	try {
     		checkoutID = Long.parseLong(args[0]); //Long 타입 변환
     	} catch (NumberFormatException e) {
-    		throw new ArgumentException("비정상적인 입력입니다.")
+    		throw new ArgumentException("비정상적인 입력입니다.");
     	}
 
         final Member member = CurrentMember.getCurrentMember();
