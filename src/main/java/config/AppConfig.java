@@ -89,7 +89,7 @@ public class AppConfig {
 
     public LoginController loginController() {
         if (loginController == null) {
-            loginController = new LoginController(loginService(), signupService());
+            loginController = new LoginController(loginService(), signupService(), makeLibrarian());
         }
         return loginController;
     }

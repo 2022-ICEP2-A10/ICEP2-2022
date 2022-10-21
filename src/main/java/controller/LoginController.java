@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 
 import service.LoginService;
 import service.SignupService;
+import librarian.Librarian;
+import domain.Status;
+import domain.StatusType;
 
 import java.util.List;
 
@@ -16,6 +19,8 @@ public class LoginController {
 
     private final LoginService loginService;
     private final SignupService signupService;
+
+    Librarian librarian;
 
     public void execute(String command, String[] args) {
         switch (command) {
@@ -81,6 +86,7 @@ public class LoginController {
             throw new ArgumentException();
         }
 
-        // file save and close
+        Status.changeStatus(StatusType.EXIT);
+        librarian.exit(args);
     }
 }
