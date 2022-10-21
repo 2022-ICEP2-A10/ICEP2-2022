@@ -14,6 +14,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LoginController {
 
+    private final LoginService loginService;
+    private final SignupService signupService;
+
     public void execute(String command, String[] args) {
         switch (command) {
             case "help": {
@@ -54,8 +57,6 @@ public class LoginController {
             throw new ArgumentException();
         }
 
-        final LoginService loginService = new LoginService();
-
         try {
             loginService.login(args);
         } catch(LoginException e) {
@@ -67,8 +68,6 @@ public class LoginController {
         if (args.length != 2) {
             throw new ArgumentException();
         }
-
-        final SignupService signupService = new SignupService();
 
         try {
             signupService.signup(args);
