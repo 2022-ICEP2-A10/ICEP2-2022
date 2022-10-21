@@ -19,8 +19,7 @@ public class LoginController {
 
     private final LoginService loginService;
     private final SignupService signupService;
-
-    Librarian librarian;
+    private final Librarian librarian;
 
     public void execute(String command, String[] args) {
         switch (command) {
