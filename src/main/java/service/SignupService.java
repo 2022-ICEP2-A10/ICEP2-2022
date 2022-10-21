@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import repository.MemberRepository;
 import exceptions.SignupException;
 import domain.Member;
+import domain.UserType;
 
 @RequiredArgsConstructor
 public class SignupService {
@@ -14,8 +15,6 @@ public class SignupService {
         final String inputId = args[0];
         final String inputPassword = args[1];
 
-
-        Member member;
         final String idRegex = "[a-zA-Z0-9]{4,10}";
         final String passwordRegex= "[a-zA-Z0-9]{4,10}";
 
@@ -28,12 +27,18 @@ public class SignupService {
         } else if (memberRepository.findById(inputId).isPresent()) {
             throw new SignupException("중복된 아이디입니다.");
         } else {
+            Member member = Member.builder()
+                .userid(inputId)
+                .password(inputPassword)
+                .possible(true)
+                .userType(UserType.MEMBER)
+                .build();
+            memberRepository.save(member);
+
             System.out.println("회원가입이 완료되었습니다.");
             System.out.println("id: " + inputId);
             System.out.println("password: " + inputPassword);
-
-            // add member
-
+            
             return;
         }
     }
