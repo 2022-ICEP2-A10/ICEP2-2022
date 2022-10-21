@@ -2,16 +2,24 @@ package service;
 
 import lombok.RequiredArgsConstructor;
 import exceptions.LoginException;
+import repository.MemberRepository;
+import domain.Member;
 
 @RequiredArgsConstructor
 public class LoginService {
     public void login(String[] args) {
         final String inputID = args[0];
         final String inputPassword = args[1];
+        final MemberRepository memberRepository;
+        Member member;
 
-        if (false /* !exist('id') */) {
+        if (memberRepository.findById(inputID).isPresent()) {
             throw new LoginException("가입되어 있지 않은 회원입니다.");
-        } else if (false /* id.password.equals(inputPassword) */) {
+        }
+
+        member = memberRepository.findById(inputID).get();
+        
+        if (member.getPassword().equals(inputPassword)) {
             throw new LoginException("비밀번호가 틀렸습니다.");
         } else if (inputID.equals("admin")) {
             System.out.println("사서로 로그인했습니다.");
