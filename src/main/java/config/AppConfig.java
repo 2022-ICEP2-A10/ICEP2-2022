@@ -14,6 +14,7 @@ import presentation.MainPrompt;
 import repository.BookRepository;
 import repository.CheckoutRepository;
 import repository.MemberRepository;
+import service.*;
 import util.CommandParser;
 import util.Sequence;
 
@@ -32,6 +33,15 @@ public class AppConfig {
     private AdminController adminController;
     private LoginController loginController;
     private MemberController memberController;
+
+    private CheckoutService checkoutService;
+    private HelpService helpService;
+    private LoginService loginService;
+    private LogoutService logoutService;
+    private MyLoanService myLoanService;
+    private ReturnBookService returnBookService;
+    private SearchService searchService;
+    private SignupService signupService;
     
     private MemberRepository memberRepository;
     private BookRepository bookRepository;
@@ -79,16 +89,73 @@ public class AppConfig {
 
     public LoginController loginController() {
         if (loginController == null) {
-
+            loginController = new LoginController(loginService(), signupService());
         }
         return loginController;
     }
 
     public MemberController memberController() {
         if (memberController == null) {
-
+            memberController = new MemberController(helpService(), checkoutService(), returnBookService(),
+                    searchService(), myLoanService(), logoutService());
         }
         return memberController;
+    }
+
+    public CheckoutService checkoutService() {
+        if (checkoutService == null) {
+            checkoutService = new CheckoutService(bookRepository(), memberRepository(), checkoutRepository());
+        }
+        return checkoutService;
+    }
+
+    public HelpService helpService() {
+        if (helpService == null) {
+            helpService = new HelpService();
+        }
+        return helpService;
+    }
+
+    public LoginService loginService() {
+        if (loginService == null) {
+            loginService = new LoginService(memberRepository());
+        }
+        return loginService;
+    }
+
+    public LogoutService logoutService() {
+        if (logoutService == null) {
+            logoutService = new LogoutService();
+        }
+        return logoutService;
+    }
+
+    public MyLoanService myLoanService() {
+        if (myLoanService == null) {
+            myLoanService = new MyLoanService(checkoutRepository());
+        }
+        return myLoanService;
+    }
+
+    public ReturnBookService returnBookService() {
+        if (returnBookService == null) {
+            returnBookService = new ReturnBookService(checkoutRepository(), memberRepository(), bookRepository());
+        }
+        return returnBookService;
+    }
+
+    public SearchService searchService() {
+        if (searchService == null) {
+            searchService = new SearchService(bookRepository());
+        }
+        return searchService;
+    }
+
+    public SignupService signupService() {
+        if (signupService == null) {
+            signupService = new SignupService(memberRepository());
+        }
+        return signupService;
     }
 
     public Sequence sequence() {
