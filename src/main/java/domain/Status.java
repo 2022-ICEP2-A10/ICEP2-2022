@@ -7,7 +7,7 @@ public class Status {
         return curStatus;
     }
 
-    public void changeStatus(StatusType statusType) {
+    public static void changeStatus(StatusType statusType) {
         curStatus = statusType;
     }
 }
