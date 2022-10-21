@@ -35,7 +35,7 @@ public class ReturnBookService {
         long bookID = 0;
 
         for (Checkout checkout : checkouts) {
-            if (returnID.equals(checkout.getBookid())) {
+            if (returnID == checkout.getBookid()) {
                 checkoutRepository.deleteById(checkout.getId());
                 LocalDateTime returnDateTime = LocalDateTime.now();//현재 시각 = 반납 일자
                 LocalDateTime checkoutDateTime = checkout.getCheckoutDate();// 대출 당시 시각
