@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import exceptions.LoginException;
 import repository.MemberRepository;
 import domain.Member;
+import domain.Status;
+import domain.StatusType;
 
 @RequiredArgsConstructor
 public class LoginService {
@@ -21,11 +23,11 @@ public class LoginService {
             throw new LoginException("비밀번호가 틀렸습니다.");
         } else if (inputID.equals("admin")) {
             System.out.println("사서로 로그인했습니다.");
-            // changeStatus(StatusType.ADMIN);
+            Status.changeStatus(StatusType.ADMIN);
             return;
         } else {
             System.out.println("회원으로 로그인했습니다.");
-            // changeStatus(StatisType.MEMBER);
+            Status.changeStatus(StatusType.MEMBER);
             return;
         }
     }
