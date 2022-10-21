@@ -7,17 +7,15 @@ import domain.Member;
 
 @RequiredArgsConstructor
 public class LoginService {
+
+    private final MemberRepository memberRepository;
+
     public void login(String[] args) {
         final String inputID = args[0];
         final String inputPassword = args[1];
-        final MemberRepository memberRepository;
-        Member member;
 
-        if (memberRepository.findById(inputID).isPresent()) {
-            throw new LoginException("가입되어 있지 않은 회원입니다.");
-        }
-
-        member = memberRepository.findById(inputID).get();
+        Member member = memberRepository.findById(inputID)
+                .orElseThrow(() -> new LoginException("가입되어 있지 않은 회원입니다."));
         
         if (member.getPassword().equals(inputPassword)) {
             throw new LoginException("비밀번호가 틀렸습니다.");

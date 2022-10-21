@@ -7,14 +7,17 @@ import domain.Member;
 
 @RequiredArgsConstructor
 public class SignupService {
+
+    private final MemberRepository memberRepository;
+
     public void signup(String[] args) {
         final String inputId = args[0];
         final String inputPassword = args[1];
 
-        final MemberRepository memberRepository;
+
         Member member;
-        final String idRegex = "[a-zA-Z0-9]{4, 10}";
-        final String passwordRegex= "[a-zA-Z0-9]{4, 10}";
+        final String idRegex = "[a-zA-Z0-9]{4,10}";
+        final String passwordRegex= "[a-zA-Z0-9]{4,10}";
 
         if (!(inputId.matches(idRegex) && inputPassword.matches(passwordRegex))) {
             final String message = "비정상적인 입력입니다.\n"
