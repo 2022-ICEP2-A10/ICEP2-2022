@@ -7,7 +7,9 @@ import controller.MemberController;
 import domain.Book;
 import domain.Checkout;
 import domain.Member;
+import domain.Status;
 import domain.UserType;
+import librarian.Librarian;
 import presentation.MainPrompt;
 import repository.BookRepository;
 import repository.CheckoutRepository;
@@ -30,12 +32,14 @@ public class AppConfig {
     private AdminController adminController;
     private LoginController loginController;
     private MemberController memberController;
-
+    
     private MemberRepository memberRepository;
     private BookRepository bookRepository;
     private CheckoutRepository checkoutRepository;
 
     private Sequence sequence;
+    
+    private Librarian librarian;
 
     public MainPrompt mainPrompt() {
         if (mainPrompt == null) {
@@ -57,10 +61,18 @@ public class AppConfig {
         }
         return controllerFacade;
     }
-
+   
+    public Librarian makeLibrarian() {
+    	if (librarian == null) {
+        	librarian=new Librarian(bookRepository(), memberRepository(), checkoutRepository());
+        }
+    	return librarian;
+    }
+    
+   
     public AdminController adminController() {
         if (adminController == null) {
-
+        	adminController=new AdminController(makeLibrarian());
         }
         return adminController;
     }
@@ -186,6 +198,7 @@ public class AppConfig {
                 }
             } catch (IOException e) {
                 makeDatafile("./data/checkouts");
+
             }
             checkoutRepository = new CheckoutRepository(checkouts, sequence());
         }
@@ -194,7 +207,7 @@ public class AppConfig {
     }
 
     private void makeDatafile(String pathname) {
-        System.out.println(pathname + " Í≤ΩÎ°ú ÏóÜÏùå");
+        System.out.println(pathname + " ∞Ê∑Œ æ¯¿Ω");
         File file = new File(pathname);
         file.getParentFile().mkdirs();
         try {

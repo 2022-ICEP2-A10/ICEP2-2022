@@ -1,14 +1,30 @@
 package controller;
 
 import exceptions.CommandException;
+import librarian.Librarian;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
+import repository.BookRepository;
+import repository.CheckoutRepository;
+import repository.MemberRepository;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+
+import domain.Checkout;
+import domain.Member;
+import domain.Status;
+
 
 @RequiredArgsConstructor
 public class AdminController {
 
-    public void execute(String command, String[] args) {
+	private final Librarian lib;
+
+
+	
+    public void execute(String command, String[] args) throws IOException {
         switch (command) {
             case "help": {
                 help(args);
@@ -26,24 +42,35 @@ public class AdminController {
                 loans(args);
                 break;
             }
+            case "logout": {
+            	logout(args);
+            	break;
+            }
             default:
                 throw new CommandException();
         }
     }
 
     private void help(String[] args) {
+    	lib.librarian_help(args);
 
     }
 
-    private void register(String[] args) {
-
+    private void register(String[] args) throws IOException {
+    	lib.regist_Book(args);
     }
 
     private void members(String[] args) {
-
+    	lib.show_Memberlist(args);
     }
 
     private void loans(String[] args) {
-
+    	lib.show_Checkout_Book(args);
     }
+    private void logout(String[] args) {
+    	lib.logout(args);
+    }
+
+
+
 }
