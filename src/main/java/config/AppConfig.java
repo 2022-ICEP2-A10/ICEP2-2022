@@ -207,7 +207,7 @@ public class AppConfig {
     }
 
     private void makeDatafile(String pathname) {
-        System.out.println(pathname + " °æ·Î ¾øÀ½");
+        System.out.println(pathname + " ìƒˆë¡œ ìƒì„±");
         File file = new File(pathname);
         file.getParentFile().mkdirs();
         try {
