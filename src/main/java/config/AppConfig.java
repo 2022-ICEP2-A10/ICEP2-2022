@@ -132,7 +132,7 @@ public class AppConfig {
 
     public MyLoanService myLoanService() {
         if (myLoanService == null) {
-            myLoanService = new MyLoanService(checkoutRepository());
+            myLoanService = new MyLoanService(checkoutRepository(), bookRepository());
         }
         return myLoanService;
     }
