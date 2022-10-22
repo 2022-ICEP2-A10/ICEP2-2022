@@ -2,6 +2,7 @@ package controller;
 
 import exceptions.ArgumentException;
 import exceptions.CommandException;
+import exceptions.MemberException;
 import lombok.RequiredArgsConstructor;
 
 import service.*;
@@ -61,8 +62,11 @@ public class MemberController {
         if (args.length != 1) {
             throw new ArgumentException("비정상적인 입력입니다.\n인자의 개수가 잘못되었습니다.");
         }
-
-        checkoutService.checkout(args);
+        try {
+            checkoutService.checkout(args);
+        } catch(MemberException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private void returnBook(String[] args) {
@@ -70,7 +74,11 @@ public class MemberController {
             throw new ArgumentException("비정상적인 입력입니다.\n인자의 개수가 잘못되었습니다.");
         }
 
-        returnBookService.returnBook(args);
+        try {
+            returnBookService.returnBook(args);
+        } catch(MemberException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private void search(String[] args) {
