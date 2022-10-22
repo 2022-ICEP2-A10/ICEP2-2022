@@ -192,6 +192,13 @@ public class AppConfig {
                     } catch (DateTimeParseException e) {
                         time = null;
                     }
+                    //날짜 넘었으면 대출가능으로 변경
+                    if(!possible) {
+                    	 if(LocalDateTime.now().isBefore(time)) {
+                         	time=null;
+                         	possible=true;
+                         }
+                    }
                     UserType userType = UserType.valueOf(split[4]);
                     Member member = Member.builder()
                             .userid(split[0])
