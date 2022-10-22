@@ -2,24 +2,35 @@ package service;
 
 import lombok.RequiredArgsConstructor;
 import repository.CheckoutRepository;
-import repository.MemberRepository;
-
-import java.util.List;
-
+import repository.BookRepository;
+import domain.Book;
 import domain.Checkout;
-import domain.Member;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+
 import util.CurrentMember;
 
 @RequiredArgsConstructor
 public class MyLoanService {
 
 	private final CheckoutRepository checkoutRepository;
+	private final BookRepository bookRepository;
 	 public void myloan(String[] args) {
 
-		 // 내 대출 목록 검색할 땐 아무 명령어가 없어야 하는데 checkoutrepository엔 user id를 넣어야함
 		 List<Checkout> checkout = checkoutRepository.findAllByUserid(CurrentMember.getCurrentMember().getUserid());
+		 
+		 System.out.println("현재 대출 중인 도서의 목록입니다.");
+		 
 		 for(Checkout c:checkout) {
-			 System.out.println(c.toString());
+			 Optional<Book> book = bookRepository.findById(c.getBookid());
+			 int day=LocalDateTime.now().getDayOfMonth()+7;
+					 
+			 String str=c.getBookid()+" "+book.get().getTitle()+"\n"
+			 +"반납기한: "+LocalDateTime.now().getYear()+LocalDateTime.now().getMonthValue()+Integer.toString(day);
+			 
+			 System.out.println(str);		 
 		 }
 	 }
 }
