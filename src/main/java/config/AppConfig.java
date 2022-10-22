@@ -253,7 +253,7 @@ public class AppConfig {
                     new FileInputStream("./data/checkouts")))) {
 
                 String line;
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
                 while ((line = reader.readLine()) != null) {
                     String[] split = line.split("\t");

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Checkout 클래스 빌더 패턴 사용 예시
@@ -24,6 +25,10 @@ public class Checkout {
 
     @Override
     public String toString() {
-        return id + "\t" + userid + "\t" + bookid + "\t" + checkoutDate;
+        String date = null;
+        if (checkoutDate != null) {
+            date = checkoutDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        }
+        return id + "\t" + userid + "\t" + bookid + "\t" + date;
     }
 }
