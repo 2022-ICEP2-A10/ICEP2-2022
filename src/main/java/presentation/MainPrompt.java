@@ -29,6 +29,10 @@ public class MainPrompt {
                     controllerFacade.execute(command, args);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
+                } catch (CommandException e) {
+                    System.out.println("명령어 잘못됐다는 메시지 (문구는 수정)");
+                } catch (ArgumentException e) {
+                    System.out.println("인자 잘못됐다는 메시지 (문구는 수정)");
                 }
             }
         } catch (IOException e) {
