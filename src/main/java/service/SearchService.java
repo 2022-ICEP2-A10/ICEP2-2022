@@ -23,7 +23,7 @@ public class SearchService {
 			 } else {
 				 active = "불가능";
 			 }
-			 System.out.println(book.getId() + "\t" + book.getTitle() + "\n 대출 가능 여부: " + active);
+			 System.out.println(book.getId() + "\t" + book.getTitle() + "\n대출 가능 여부: " + active);
 		 }
 		 
 	 }
