@@ -27,6 +27,13 @@ public class CheckoutService {
     		throw new ArgumentException("비정상적인 입력입니다.");
     	}
 
+        Book book = bookRepository.findById(checkoutID)
+                .orElseThrow(() -> new MemberException("등록되어 있지 않은 도서입니다"));
+
+        if(!book.isActive()) {
+        	throw new MemberException("등록되어 있지 않은 도서입니다");
+        }
+        
         final Member member = CurrentMember.getCurrentMember();
 
         if (!member.isPossible()) {//대출 가능 여부
@@ -39,10 +46,8 @@ public class CheckoutService {
                                 .build();
 
             checkoutRepository.save(checkout);
-            Book book = bookRepository.findById(checkoutID)
-                    .orElseThrow(() -> new MemberException("등록되어 있지 않은 도서입니다"));
-            book.setActive(false);
 
+            book.setActive(false);
             bookRepository.save(book);
 
             System.out.println("도서 대출이 완료되었습니다.");
