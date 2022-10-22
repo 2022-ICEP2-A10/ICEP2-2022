@@ -16,7 +16,7 @@ public class SignupService {
         final String inputPassword = args[1];
 
         final String idRegex = "[a-zA-Z0-9]{4,10}";
-        final String passwordRegex= "[a-zA-Z0-9]{4,10}";
+        final String passwordRegex= "[a-zA-Z0-9]{4,20}";
 
         if (!(inputId.matches(idRegex) && inputPassword.matches(passwordRegex))) {
             final String message = "비정상적인 입력입니다.\n"
