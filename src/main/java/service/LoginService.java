@@ -3,9 +3,11 @@ package service;
 import lombok.RequiredArgsConstructor;
 import exceptions.LoginException;
 import repository.MemberRepository;
+import util.CurrentMember;
 import domain.Member;
 import domain.Status;
 import domain.StatusType;
+import util.CurrentMember;
 
 @RequiredArgsConstructor
 public class LoginService {
@@ -28,6 +30,7 @@ public class LoginService {
         } else {
             System.out.println("회원으로 로그인했습니다.");
             Status.changeStatus(StatusType.MEMBER);
+            CurrentMember.setCurMember(member);
             return;
         }
     }
