@@ -33,7 +33,7 @@ public class CheckoutService {
             throw new MemberException("사용자가 대출 불가능 상태입니다.");// 대출 불가능 시
         } else {
             Checkout checkout = Checkout.builder()
-                                 .userid(member.getUserid())
+                                .userid(member.getUserid())
                                 .bookid(checkoutID)
                                 .checkoutDate(LocalDateTime.now())
                                 .build();
