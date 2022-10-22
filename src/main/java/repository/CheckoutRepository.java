@@ -11,6 +11,7 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -26,6 +27,10 @@ public class CheckoutRepository implements FileBaseDatabase {
 
     public List<Checkout> findAll() {
         return new ArrayList<>(checkouts.values());
+    }
+
+    public Optional<Checkout> findById(Long checkoutid) {
+        return Optional.ofNullable(checkouts.get(checkoutid));
     }
 
     public List<Checkout> findAllByUserid(String userid) {
