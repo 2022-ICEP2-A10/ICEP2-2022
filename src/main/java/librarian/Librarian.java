@@ -37,7 +37,6 @@ public class Librarian {
 	// help
 	public void librarian_help(String[] args) {
 		if (args.length != 0) {
-			System.out.println("인자의 개수가 잘못되었습니다.");
             throw new ArgumentException();
         }else {
         	System.out.println("사서 프롬프트의 명령어입니다.");
@@ -52,7 +51,6 @@ public class Librarian {
 	// 대출 정보 출력
 	public void show_Checkout_Book(String[] args) {
 		if (args.length != 0) {
-			System.out.println("인자의 개수가 잘못되었습니다.");
 			throw new ArgumentException();
         }
 		else {
@@ -89,7 +87,6 @@ public class Librarian {
 	// 회원 정보 출력
 	public void show_Memberlist(String[] args) {
 		if (args.length != 0) {
-			System.out.println("인자의 개수가 잘못되었습니다.");
             throw new ArgumentException();
         }
 		else {
@@ -111,7 +108,6 @@ public class Librarian {
 	public void regist_Book(String[] bookname) {
 		// 비정상 종료 전 저장
 		if (bookname.length <= 0) {
-			System.out.println("인자의 개수가 잘못되었습니다.");
 			throw new ArgumentException();
 		}
 		else {
@@ -135,7 +131,6 @@ public class Librarian {
 	// 동시에 등록한 도서 데이터파일에 입력
 	public void logout(String[] args) {
 		if (args.length != 0) {
-			System.out.println("인자의 개수가 잘못되었습니다.");
             throw new ArgumentException();
         }
 		else {
