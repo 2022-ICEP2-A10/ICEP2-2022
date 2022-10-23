@@ -90,7 +90,7 @@ public class AdminService {
 					if (mem.isPossible()) {
 						System.out.println(userid + ": 대출가능");
 					} else {
-						System.out.println(userid + ": 대출불가 ~ " + time);
+						System.out.println(userid + ": 대출불가능 ~ " + time);
 					}
 				}	
 			}
