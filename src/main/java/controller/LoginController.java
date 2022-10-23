@@ -8,18 +8,16 @@ import lombok.RequiredArgsConstructor;
 
 import service.LoginService;
 import service.SignupService;
-import librarian.Librarian;
+import service.AdminService;
 import domain.Status;
 import domain.StatusType;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 public class LoginController {
 
     private final LoginService loginService;
     private final SignupService signupService;
-    private final Librarian librarian;
+    private final AdminService adminService;
 
     public void execute(String command, String[] args) {
         switch (command) {
@@ -86,6 +84,6 @@ public class LoginController {
         }
         System.out.println("프로그램을 종료합니다.");
         Status.changeStatus(StatusType.EXIT);
-        librarian.exit(args);
+        adminService.exit(args);
     }
 }

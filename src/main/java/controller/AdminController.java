@@ -1,13 +1,13 @@
 package controller;
 
 import exceptions.CommandException;
-import librarian.Librarian;
+import service.AdminService;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class AdminController {
 
-	private final Librarian lib;
+	private final AdminService adminService;
 
     public void execute(String command, String[] args) {
         switch (command) {
@@ -37,23 +37,23 @@ public class AdminController {
     }
 
     private void help(String[] args) {
-    	lib.librarian_help(args);
+    	adminService.librarian_help(args);
 
     }
 
     private void register(String[] args) {
-    	lib.regist_Book(args);
+    	adminService.regist_Book(args);
     }
 
     private void members(String[] args) {
-    	lib.show_Memberlist(args);
+    	adminService.show_Memberlist(args);
     }
 
     private void loans(String[] args) {
-    	lib.show_Checkout_Book(args);
+    	adminService.show_Checkout_Book(args);
     }
     private void logout(String[] args) {
-    	lib.logout(args);
+    	adminService.logout(args);
     }
 
 
