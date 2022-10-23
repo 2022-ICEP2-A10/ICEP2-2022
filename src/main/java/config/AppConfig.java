@@ -177,7 +177,15 @@ public class AppConfig {
 
     public MemberRepository memberRepository() {
         if (memberRepository == null) {
-            Map<String, Member> members = new LinkedHashMap<>();
+            Map<String, Member> members = new LinkedHashMap<>() {{
+                Member admin = Member.builder()
+                        .userid("admin")
+                        .password("admin")
+                        .userType(UserType.ADMIN)
+                        .build();
+                put("admin", admin);
+            }};
+
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(
                     new FileInputStream("./data/members"), StandardCharsets.UTF_8))) {
 
