@@ -25,10 +25,9 @@ public class MyLoanService {
 		 
 		 for(Checkout c:checkout) {
 			 Optional<Book> book = bookRepository.findById(c.getBookid());
-			 int day=LocalDateTime.now().getDayOfMonth()+7;
 					 
 			 String str=c.getBookid()+" "+book.get().getTitle()+"\n"
-			 +"반납기한: "+LocalDateTime.now().getYear()+LocalDateTime.now().getMonthValue()+Integer.toString(day);
+			 +"반납기한: "+c.getCheckoutDate().getYear()+c.getCheckoutDate().getMonthValue()+c.getCheckoutDate().getDayOfMonth();
 			 
 			 System.out.println(str);		 
 		 }
