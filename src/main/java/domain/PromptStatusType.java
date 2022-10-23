@@ -1,6 +1,6 @@
 package domain;
 
-public enum StatusType {
+public enum PromptStatusType {
     LOGIN,
     MEMBER,
     ADMIN,
