@@ -38,7 +38,7 @@ public class Librarian {
         }else {
         	System.out.println("사서 프롬프트의 명령어입니다.");
     		System.out.println("- help : 현재 프롬프트에서 입력할 수 있는 명령어를 출력합니다.");
-    		System.out.println("- register : 도서를 등록합니다.");
+    		System.out.println("- register [도서 제목]: 도서를 등록합니다.");
     		System.out.println("- members : 회원정보를 출력합니다.");
     		System.out.println("- loans : 대출정보를 출력합니다.");
     		System.out.println("- logout : 로그아웃 합니다.");
