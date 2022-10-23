@@ -53,7 +53,7 @@ public class Librarian {
         }
 		else {
 			List<Checkout> checkouts=checkoutRepository.findAll();
-			
+			System.out.println("-memberid : bookid-");
 			HashMap<String, ArrayList<Long>> map = new HashMap<>();
 			for (int i = 0; i < checkouts.size(); i++) {
 				Checkout ch = checkouts.get(i);
@@ -87,6 +87,7 @@ public class Librarian {
         }
 		else {
 			List<Member> members = memberRepository.findAll();
+			System.out.println("-member id : 대출가능여부-");
 			for (int i = 0; i < members.size();i++) {
 				Member mem = members.get(i);
 				if(mem.getUserType()!=UserType.ADMIN) {
