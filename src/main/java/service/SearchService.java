@@ -12,7 +12,7 @@ public class SearchService {
 	private final BookRepository bookRepository;
 
 	 public void search(String[] args) {
-		 final String title = args[0];
+		 final String title = String.join(" ", args);
 
 		 List<Book> books = bookRepository.findAllByTitle(title);
 		 System.out.println("검색된 도서입니다.");
