@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import domain.Status;
 import domain.StatusType;
+import domain.UserType;
 import domain.Book;
 import domain.Checkout;
 import domain.Member;
@@ -88,13 +89,15 @@ public class Librarian {
 			List<Member> members = memberRepository.findAll();
 			for (int i = 0; i < members.size();i++) {
 				Member mem = members.get(i);
-				String userid = mem.getUserid();
-				LocalDateTime time = mem.getPossibleDate();
-				if (mem.isPossible()) {
-					System.out.println(userid + ": 대출가능");
-				} else {
-					System.out.println(userid + ": 대출불가 ~ " + time);
-				}
+				if(mem.getUserType()!=UserType.ADMIN) {
+					String userid = mem.getUserid();
+					LocalDateTime time = mem.getPossibleDate();
+					if (mem.isPossible()) {
+						System.out.println(userid + ": 대출가능");
+					} else {
+						System.out.println(userid + ": 대출불가 ~ " + time);
+					}
+				}	
 			}
 		}
 	}
