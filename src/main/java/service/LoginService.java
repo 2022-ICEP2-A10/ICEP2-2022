@@ -8,7 +8,6 @@ import util.CurrentMember;
 import domain.Member;
 import domain.Status;
 import domain.StatusType;
-import util.CurrentMember;
 
 @RequiredArgsConstructor
 public class LoginService {

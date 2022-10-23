@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import domain.Checkout;
 import repository.CheckoutRepository;
 import repository.BookRepository;
-import repository.MemberRepository;
 import util.CurrentMember;
 import java.time.LocalDateTime;
 
