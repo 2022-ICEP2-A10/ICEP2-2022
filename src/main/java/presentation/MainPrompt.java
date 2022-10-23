@@ -1,8 +1,8 @@
 package presentation;
 
 import controller.ControllerFacade;
-import domain.Status;
-import domain.StatusType;
+import util.CurrentPrompt;
+import domain.PromptStatusType;
 import exceptions.ArgumentException;
 import exceptions.CommandException;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ public class MainPrompt {
 
     public void start() {
         try (BufferedReader commandReader = new BufferedReader(new InputStreamReader(System.in))) {
-            while (Status.getCurStatus() != StatusType.EXIT) {
+            while (CurrentPrompt.getCurStatus() != PromptStatusType.EXIT) {
                 System.out.print("$ ");
                 try {
                     String commandline = commandReader.readLine();

@@ -9,8 +9,8 @@ import lombok.RequiredArgsConstructor;
 import service.LoginService;
 import service.SignupService;
 import service.AdminService;
-import domain.Status;
-import domain.StatusType;
+import util.CurrentPrompt;
+import domain.PromptStatusType;
 
 @RequiredArgsConstructor
 public class LoginController {
@@ -83,7 +83,7 @@ public class LoginController {
             throw new ArgumentException();
         }
         System.out.println("프로그램을 종료합니다.");
-        Status.changeStatus(StatusType.EXIT);
+        CurrentPrompt.changeStatus(PromptStatusType.EXIT);
         adminService.exit(args);
     }
 }

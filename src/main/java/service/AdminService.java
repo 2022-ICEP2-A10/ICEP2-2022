@@ -2,8 +2,8 @@ package service;
 
 import exceptions.ArgumentException;
 import lombok.RequiredArgsConstructor;
-import domain.Status;
-import domain.StatusType;
+import util.CurrentPrompt;
+import domain.PromptStatusType;
 import domain.UserType;
 import domain.Book;
 import domain.Checkout;
@@ -123,7 +123,7 @@ public class AdminService {
             throw new ArgumentException();
         } else {
 			System.out.println("로그아웃 되었습니다.");
-			Status.changeStatus(StatusType.LOGIN);
+			CurrentPrompt.changeStatus(PromptStatusType.LOGIN);
 		}
 
 	}

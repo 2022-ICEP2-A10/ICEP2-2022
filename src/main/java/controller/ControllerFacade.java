@@ -1,6 +1,6 @@
 package controller;
 
-import domain.Status;
+import util.CurrentPrompt;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -13,7 +13,7 @@ public class ControllerFacade {
     private final MemberController memberController;
 
     public void execute(String command, String[] args) {
-        switch (Status.getCurStatus()) {
+        switch (CurrentPrompt.getCurStatus()) {
             case LOGIN: {
                 loginController.execute(command, args);
                 break;

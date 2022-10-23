@@ -6,8 +6,8 @@ import exceptions.LoginException;
 import repository.MemberRepository;
 import util.CurrentMember;
 import domain.Member;
-import domain.Status;
-import domain.StatusType;
+import util.CurrentPrompt;
+import domain.PromptStatusType;
 
 @RequiredArgsConstructor
 public class LoginService {
@@ -25,11 +25,11 @@ public class LoginService {
             throw new LoginException("비밀번호가 틀렸습니다.");
         } else if (member.getUserType().equals(UserType.ADMIN)) {
             System.out.println("사서로 로그인했습니다.");
-            Status.changeStatus(StatusType.ADMIN);
+            CurrentPrompt.changeStatus(PromptStatusType.ADMIN);
             return;
         } else {
             System.out.println("회원으로 로그인했습니다.");
-            Status.changeStatus(StatusType.MEMBER);
+            CurrentPrompt.changeStatus(PromptStatusType.MEMBER);
             CurrentMember.setCurMember(member);
             return;
         }
