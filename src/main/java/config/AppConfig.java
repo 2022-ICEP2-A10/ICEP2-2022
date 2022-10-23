@@ -195,7 +195,12 @@ public class AppConfig {
                 while ((line = reader.readLine()) != null) {
                     String[] split = line.split("\t");
                     boolean possible = Boolean.parseBoolean(split[2]);
-                    LocalDateTime possibleDate = LocalDateTime.parse(split[3], formatter);
+                    LocalDateTime possibleDate;
+                    try {
+                        possibleDate = LocalDateTime.parse(split[3], formatter);
+                    } catch (DateTimeParseException e) {
+                        possibleDate = null;
+                    }
 
                     // 현재 시간이 대출 가능 날짜 이후면 대출 가능으로 변경
                     if(LocalDateTime.now().isBefore(possibleDate)) {
