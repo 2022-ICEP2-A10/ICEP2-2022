@@ -198,14 +198,13 @@ public class AppConfig {
                     LocalDateTime possibleDate;
                     try {
                         possibleDate = LocalDateTime.parse(split[3], formatter);
+                        // 현재 시간이 대출 가능 날짜 이후면 대출 가능으로 변경
+                        if(LocalDateTime.now().isBefore(possibleDate)) {
+                            possibleDate = null;
+                            possible = true;
+                        }
                     } catch (DateTimeParseException e) {
                         possibleDate = null;
-                    }
-
-                    // 현재 시간이 대출 가능 날짜 이후면 대출 가능으로 변경
-                    if(LocalDateTime.now().isBefore(possibleDate)) {
-                        possibleDate = null;
-                        possible = true;
                     }
 
                     UserType userType = UserType.valueOf(split[4]);
