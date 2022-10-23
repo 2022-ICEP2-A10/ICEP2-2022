@@ -112,11 +112,7 @@ public class Librarian {
 		}
 		else {
 			String name = "";
-			for (int i = 0; i < bookname.length; i++) {
-				name = name + bookname[i];
-			}
-
-
+			name=name.join(" ", bookname);
 			Book inputbook= Book.builder()
                      .title(name)
                      .isActive(true)
