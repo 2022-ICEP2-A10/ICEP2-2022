@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import util.Sequence;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +43,7 @@ public class BookRepository implements FileBaseDatabase {
     @Override
     public void destroy() {
         try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream("./data/books")))) {
+                new FileOutputStream("./data/books"), StandardCharsets.UTF_8))) {
             for (Book book : books.values()) {
                 writer.write(book.toString());
                 writer.newLine();
