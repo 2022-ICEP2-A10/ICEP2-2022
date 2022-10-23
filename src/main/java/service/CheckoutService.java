@@ -11,7 +11,6 @@ import repository.CheckoutRepository;
 import repository.BookRepository;
 import repository.MemberRepository;
 import util.CurrentMember;
-
 import java.time.LocalDateTime;
 
 @RequiredArgsConstructor
@@ -35,24 +34,25 @@ public class CheckoutService {
         }
         
         final Member member = CurrentMember.getCurrentMember();
-
+        
         if (!member.isPossible()) {//대출 가능 여부
-            throw new MemberException("사용자가 대출 불가능 상태입니다.");// 대출 불가능 시
-        } else {
-            Checkout checkout = Checkout.builder()
-                                .userid(member.getUserid())
-                                .bookid(checkoutID)
-                                .checkoutDate(LocalDateTime.now())
-                                .build();
+        	if (member.getPossibleDate().isAfter(LocalDateTime.now())) {
+        		throw new MemberException("사용자가 대출 불가능 상태입니다.");// 대출 불가능 시
+        	}
+        } 
+  
+        Checkout checkout = Checkout.builder()
+                .userid(member.getUserid())
+                .bookid(checkoutID)
+                .checkoutDate(LocalDateTime.now())
+                .build();
 
-            checkoutRepository.save(checkout);
-
-            book.setActive(false);
-            bookRepository.save(book);
-
-            System.out.println("도서 대출이 완료되었습니다.");
-            return;
-        }
-
+	    checkoutRepository.save(checkout);
+	
+	    book.setActive(false);
+	    bookRepository.save(book);
+	
+	    System.out.println("도서 대출이 완료되었습니다.");
+	    return;
     }
 }
