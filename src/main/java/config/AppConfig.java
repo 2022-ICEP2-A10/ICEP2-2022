@@ -177,7 +177,15 @@ public class AppConfig {
 
     public MemberRepository memberRepository() {
         if (memberRepository == null) {
-            Map<String, Member> members = new LinkedHashMap<>();
+            Map<String, Member> members = new LinkedHashMap<>() {{
+                Member admin = Member.builder()
+                        .userid("admin")
+                        .password("admin")
+                        .userType(UserType.ADMIN)
+                        .build();
+                put("admin", admin);
+            }};
+
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(
                     new FileInputStream("./data/members"), StandardCharsets.UTF_8))) {
 
@@ -187,25 +195,20 @@ public class AppConfig {
                 while ((line = reader.readLine()) != null) {
                     String[] split = line.split("\t");
                     boolean possible = Boolean.parseBoolean(split[2]);
-                    LocalDateTime time;
-                    try {
-                        time = LocalDateTime.parse(split[3], formatter);
-                    } catch (DateTimeParseException e) {
-                        time = null;
+                    LocalDateTime possibleDate = LocalDateTime.parse(split[3], formatter);
+
+                    // 현재 시간이 대출 가능 날짜 이후면 대출 가능으로 변경
+                    if(LocalDateTime.now().isBefore(possibleDate)) {
+                        possibleDate = null;
+                        possible = true;
                     }
-                    //날짜 넘었으면 대출가능으로 변경
-                    if(!possible) {
-                    	 if(LocalDateTime.now().isBefore(time)) {
-                         	time=null;
-                         	possible=true;
-                         }
-                    }
+
                     UserType userType = UserType.valueOf(split[4]);
                     Member member = Member.builder()
                             .userid(split[0])
                             .password(split[1])
                             .possible(possible)
-                            .possibleDate(time)
+                            .possibleDate(possibleDate)
                             .userType(userType)
                             .build();
                     members.put(member.getUserid(), member);
