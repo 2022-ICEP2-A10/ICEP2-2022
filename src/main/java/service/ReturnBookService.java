@@ -47,6 +47,7 @@ public class ReturnBookService {
                     member.setPossible(false);
                     member.setPossibleDate(returnDateTime.plusDays(period.getDays() - 7));
                     memberRepository.save(member);
+                    System.out.println("반납된 도서가 연체되었습니다.");
                 }
                 Book book = bookRepository.findById(returnID).get();
                 book.setActive(true);
