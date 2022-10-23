@@ -1,7 +1,6 @@
 package controller;
 
 import domain.Status;
-import exceptions.CommandException;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

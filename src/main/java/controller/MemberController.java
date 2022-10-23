@@ -7,8 +7,6 @@ import lombok.RequiredArgsConstructor;
 
 import service.*;
 
-import java.util.List;
-
 @RequiredArgsConstructor
 public class MemberController {
 
