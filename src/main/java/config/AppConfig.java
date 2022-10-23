@@ -167,6 +167,7 @@ public class AppConfig {
                 sequence = new Sequence(nextSequence);
             } catch (IOException e) {
                 makeDatafile("./data/next_sequence");
+                sequence = new Sequence(1L);
             } catch (NumberFormatException e) {
                 sequence = new Sequence(1L);
             }
