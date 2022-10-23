@@ -31,7 +31,7 @@ public class CheckoutService {
                 .orElseThrow(() -> new MemberException("등록되어 있지 않은 도서입니다"));
 
         if(!book.isActive()) {
-        	throw new MemberException("등록되어 있지 않은 도서입니다");
+        	throw new MemberException("대출 중 도서입니다");
         }
         
         final Member member = CurrentMember.getCurrentMember();
