@@ -6,6 +6,7 @@ import repository.BookRepository;
 import domain.Book;
 import domain.Checkout;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,9 +25,10 @@ public class MyLoanService {
 		 
 		 for(Checkout c:checkout) {
 			 Optional<Book> book = bookRepository.findById(c.getBookid());
-					 
-			 String str=c.getBookid()+" "+book.get().getTitle()+"\n"
-			 +"반납기한: "+c.getCheckoutDate().getYear()+c.getCheckoutDate().getMonthValue()+c.getCheckoutDate().getDayOfMonth();
+			 
+			 LocalDateTime d = c.getCheckoutDate().plusDays(7);
+			 String str = c.getBookid() + " " + book.get().getTitle() + "\n"
+			 +"반납기한: "+ d.getYear() + d.getMonthValue() + d.getDayOfMonth();
 			 
 			 System.out.println(str);		 
 		 }
