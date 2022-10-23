@@ -7,9 +7,8 @@ import controller.MemberController;
 import domain.Book;
 import domain.Checkout;
 import domain.Member;
-import domain.Status;
 import domain.UserType;
-import librarian.Librarian;
+import service.AdminService;
 import presentation.MainPrompt;
 import repository.BookRepository;
 import repository.CheckoutRepository;
@@ -50,7 +49,7 @@ public class AppConfig {
 
     private Sequence sequence;
     
-    private Librarian librarian;
+    private AdminService adminService;
 
     public MainPrompt mainPrompt() {
         if (mainPrompt == null) {
@@ -73,24 +72,24 @@ public class AppConfig {
         return controllerFacade;
     }
    
-    public Librarian makeLibrarian() {
-    	if (librarian == null) {
-        	librarian=new Librarian(bookRepository(), memberRepository(), checkoutRepository(), sequence());
+    public AdminService adminService() {
+    	if (adminService == null) {
+        	adminService = new AdminService(bookRepository(), memberRepository(), checkoutRepository(), sequence());
         }
-    	return librarian;
+    	return adminService;
     }
     
    
     public AdminController adminController() {
         if (adminController == null) {
-        	adminController=new AdminController(makeLibrarian());
+        	adminController = new AdminController(adminService());
         }
         return adminController;
     }
 
     public LoginController loginController() {
         if (loginController == null) {
-            loginController = new LoginController(loginService(), signupService(), makeLibrarian());
+            loginController = new LoginController(loginService(), signupService(), adminService());
         }
         return loginController;
     }
