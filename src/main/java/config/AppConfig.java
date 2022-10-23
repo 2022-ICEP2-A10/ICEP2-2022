@@ -19,6 +19,7 @@ import util.CommandParser;
 import util.Sequence;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -161,7 +162,7 @@ public class AppConfig {
     public Sequence sequence() {
         if (sequence == null) {
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    new FileInputStream("./data/next_sequence")))) {
+                    new FileInputStream("./data/next_sequence"), StandardCharsets.UTF_8))) {
                 String line = reader.readLine();
                 long nextSequence = Long.parseLong(line);
                 sequence = new Sequence(nextSequence);
@@ -178,7 +179,7 @@ public class AppConfig {
         if (memberRepository == null) {
             Map<String, Member> members = new LinkedHashMap<>();
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    new FileInputStream("./data/members")))) {
+                    new FileInputStream("./data/members"), StandardCharsets.UTF_8))) {
 
                 String line;
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -223,7 +224,7 @@ public class AppConfig {
         if (bookRepository == null) {
             Map<Long, Book> books = new LinkedHashMap<>();
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    new FileInputStream("./data/books")))) {
+                    new FileInputStream("./data/books"), StandardCharsets.UTF_8))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     String[] split = line.split("\t");
@@ -250,7 +251,7 @@ public class AppConfig {
         if (checkoutRepository == null) {
             Map<Long, Checkout> checkouts = new LinkedHashMap<>();
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    new FileInputStream("./data/checkouts")))) {
+                    new FileInputStream("./data/checkouts"), StandardCharsets.UTF_8))) {
 
                 String line;
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
