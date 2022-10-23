@@ -84,7 +84,7 @@ public class LoginController {
         if (args.length != 0) {
             throw new ArgumentException();
         }
-
+        System.out.println("프로그램을 종료합니다.");
         Status.changeStatus(StatusType.EXIT);
         librarian.exit(args);
     }
