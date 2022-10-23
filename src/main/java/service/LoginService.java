@@ -1,5 +1,6 @@
 package service;
 
+import domain.UserType;
 import lombok.RequiredArgsConstructor;
 import exceptions.LoginException;
 import repository.MemberRepository;
@@ -23,7 +24,7 @@ public class LoginService {
         
         if (!member.getPassword().equals(inputPassword)) {
             throw new LoginException("비밀번호가 틀렸습니다.");
-        } else if (inputID.equals("admin")) {
+        } else if (member.getUserType().equals(UserType.ADMIN)) {
             System.out.println("사서로 로그인했습니다.");
             Status.changeStatus(StatusType.ADMIN);
             return;
