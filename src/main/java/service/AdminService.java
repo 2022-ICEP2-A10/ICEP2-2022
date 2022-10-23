@@ -1,8 +1,6 @@
-package librarian;
+package service;
 
 import exceptions.ArgumentException;
-import exceptions.CommandException;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import domain.Status;
 import domain.StatusType;
@@ -15,19 +13,15 @@ import repository.CheckoutRepository;
 import repository.MemberRepository;
 import util.Sequence;
 
-import java.io.*;
-import java.nio.Buffer;
 import java.util.*;
 import java.util.Map.Entry;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 
 
 @RequiredArgsConstructor
-public class Librarian {
+public class AdminService {
 
-	private final BookRepository books;
+	private final BookRepository bookRepository;
 	private final MemberRepository memberRepository;
 	private final CheckoutRepository checkoutRepository;
 	private final Sequence sequence;
@@ -116,7 +110,7 @@ public class Librarian {
                      .title(name)
                      .isActive(true)
                      .build();
-			books.save(inputbook);
+			bookRepository.save(inputbook);
 			System.out.println("도서가 등록되었습니다.");
 		}	
 
@@ -134,7 +128,7 @@ public class Librarian {
 
 	}
 	public void exit(String[] args) {
-		books.destroy();
+		bookRepository.destroy();
 		checkoutRepository.destroy();
 		memberRepository.destroy();
 		sequence.destroy();
