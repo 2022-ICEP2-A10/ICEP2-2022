@@ -21,6 +21,7 @@ public class MainPrompt {
     public void start() {
         try (BufferedReader commandReader = new BufferedReader(new InputStreamReader(System.in))) {
             while (Status.getCurStatus() != StatusType.EXIT) {
+                System.out.print("$ ");
                 try {
                     String commandline = commandReader.readLine();
                     String[] parsed = commandParser.parse(commandline);
@@ -30,9 +31,11 @@ public class MainPrompt {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 } catch (CommandException e) {
-                    System.out.println("명령어 잘못됐다는 메시지 (문구는 수정)");
+                    System.out.println("비정상적인 입력입니다.\n" +
+                            "명령어를 확인하려면 help를 입력하세요.");
                 } catch (ArgumentException e) {
-                    System.out.println("인자 잘못됐다는 메시지 (문구는 수정)");
+                    System.out.println("비정상적인 입력입니다.\n" +
+                            "인자의 개수가 잘못되었습니다.");
                 }
             }
         } catch (IOException e) {
