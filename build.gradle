@@ -20,3 +20,9 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+jar {
+    manifest {
+        attributes "Main-Class": "ICEP2A10Application"
+    }
+}
