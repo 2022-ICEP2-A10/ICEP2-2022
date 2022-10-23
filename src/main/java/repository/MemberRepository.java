@@ -7,6 +7,7 @@ import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,7 @@ public class MemberRepository implements FileBaseDatabase {
     @Override
     public void destroy() {
         try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream("./data/members")))) {
+                new FileOutputStream("./data/members"), StandardCharsets.UTF_8))) {
             for (Member member : members.values()) {
                 writer.write(member.toString());
                 writer.newLine();

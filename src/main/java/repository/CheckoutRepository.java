@@ -8,6 +8,7 @@ import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +48,7 @@ public class CheckoutRepository implements FileBaseDatabase {
     @Override
     public void destroy() {
         try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream("./data/checkouts")))) {
+                new FileOutputStream("./data/checkouts"), StandardCharsets.UTF_8))) {
             for (Checkout checkout : checkouts.values()) {
                 writer.write(checkout.toString());
                 writer.newLine();
