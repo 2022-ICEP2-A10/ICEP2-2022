@@ -105,11 +105,12 @@ public class Librarian {
 	// 도서 등록
 	public void regist_Book(String[] bookname) {
 		// 비정상 종료 전 저장
-		if (bookname.length <= 0) {
+		String name = String.join(" ", bookname);
+		if (bookname.length <= 0||name.length()>100||name.length()<1) {
+			System.out.println("도서의 제목은 1자이상 100자 이하여야 합니다.");
 			throw new ArgumentException();
 		}
 		else {
-			String name = String.join(" ", bookname);
 			Book inputbook= Book.builder()
                      .title(name)
                      .isActive(true)
