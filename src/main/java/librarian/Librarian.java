@@ -26,14 +26,11 @@ import java.time.format.DateTimeFormatter;
 @RequiredArgsConstructor
 public class Librarian {
 
-
 	private final BookRepository books;
 	private final MemberRepository memberRepository;
 	private final CheckoutRepository checkoutRepository;
 	private final Sequence sequence;
 	
-
-
 	// help
 	public void librarian_help(String[] args) {
 		if (args.length != 0) {
@@ -79,8 +76,6 @@ public class Librarian {
 				}
 				System.out.println(bookids.get(bookids.size()-1));
 			}
-			
-			
 		}
 	}
 
@@ -111,8 +106,7 @@ public class Librarian {
 			throw new ArgumentException();
 		}
 		else {
-			String name = "";
-			name=name.join(" ", bookname);
+			String name = String.join(" ", bookname);
 			Book inputbook= Book.builder()
                      .title(name)
                      .isActive(true)
@@ -128,8 +122,7 @@ public class Librarian {
 	public void logout(String[] args) {
 		if (args.length != 0) {
             throw new ArgumentException();
-        }
-		else {
+        } else {
 			System.out.println("로그아웃 되었습니다.");
 			Status.changeStatus(StatusType.LOGIN);
 		}
