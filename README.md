@@ -7,8 +7,8 @@
 * gradle로 빌드 후 실행할 수 있습니다.
 
 ``` shell
-gradlew clean build
-java -jar build/libs/ICEP2-2022-1.0-SNAPSHOT.jar
+$ gradlew clean build
+$ java -jar build/libs/ICEP2-2022-1.0-SNAPSHOT.jar
 ```
 
 * 어노테이션 기반 코드 생성 라이브러리인 Lombok 1.18.24 버전이 사용되었습니다.
