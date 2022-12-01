@@ -14,4 +14,8 @@ public class ReserveRepository {
     public Optional<Reserve> findById(long bookid) {
         return Optional.ofNullable(reserves.get(bookid));
     }
+
+    public void deleteById(long bookid) {
+        reserves.remove(bookid);
+    }
 }
