@@ -11,8 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 public class Reserve {
 
-    private Long id;
-    private String userid;
     private Long bookid;
+    private String userid;
     private LocalDateTime reservedDate;
 }
