@@ -3,6 +3,7 @@ package controller;
 import exceptions.ArgumentException;
 import exceptions.CommandException;
 import exceptions.MemberException;
+import exceptions.ReserveException;
 import lombok.RequiredArgsConstructor;
 
 import service.*;
@@ -68,7 +69,7 @@ public class MemberController {
         }
         try {
             checkoutService.checkout(args);
-        } catch(MemberException e) {
+        } catch (MemberException | ReserveException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -113,6 +114,10 @@ public class MemberController {
         if (args.length != 1) {
             throw new ArgumentException("비정상적인 입력입니다.\n인자의 개수가 잘못되었습니다.");
         }
-        reserveService.reserve(args);
+        try {
+            reserveService.reserve(args);
+        } catch (MemberException | ReserveException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
