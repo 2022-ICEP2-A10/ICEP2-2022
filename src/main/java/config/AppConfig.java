@@ -40,6 +40,7 @@ public class AppConfig {
     private ReturnBookService returnBookService;
     private SearchService searchService;
     private SignupService signupService;
+    private ReserveService reserveService;
     
     private MemberRepository memberRepository;
     private BookRepository bookRepository;
@@ -95,9 +96,16 @@ public class AppConfig {
     private MemberController memberController() {
         if (memberController == null) {
             memberController = new MemberController(helpService(), checkoutService(), returnBookService(),
-                    searchService(), myLoanService(), logoutService());
+                    searchService(), myLoanService(), logoutService(), reserveService());
         }
         return memberController;
+    }
+
+    private ReserveService reserveService() {
+        if (reserveService == null) {
+            reserveService = new ReserveService(bookRepository(), reserveRepository());
+        }
+        return reserveService;
     }
 
     private CheckoutService checkoutService() {
