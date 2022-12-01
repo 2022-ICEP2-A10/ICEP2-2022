@@ -11,6 +11,10 @@ public class ReserveRepository {
 
     private final Map<Long, Reserve> reserves;
 
+    public void save(Reserve reserve) {
+        reserves.put(reserve.getBookid(), reserve);
+    }
+
     public Optional<Reserve> findById(long bookid) {
         return Optional.ofNullable(reserves.get(bookid));
     }
