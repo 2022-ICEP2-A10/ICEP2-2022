@@ -4,10 +4,8 @@ import controller.AdminController;
 import controller.ControllerFacade;
 import controller.LoginController;
 import controller.MemberController;
-import domain.Book;
-import domain.Checkout;
-import domain.Member;
-import domain.UserType;
+import domain.*;
+import repository.ReserveRepository;
 import service.AdminService;
 import presentation.MainPrompt;
 import repository.BookRepository;
@@ -46,6 +44,7 @@ public class AppConfig {
     private MemberRepository memberRepository;
     private BookRepository bookRepository;
     private CheckoutRepository checkoutRepository;
+    private ReserveRepository reserveRepository;
 
     private Sequence sequence;
     
@@ -104,7 +103,7 @@ public class AppConfig {
 
     public CheckoutService checkoutService() {
         if (checkoutService == null) {
-            checkoutService = new CheckoutService(bookRepository(), checkoutRepository());
+            checkoutService = new CheckoutService(bookRepository(), checkoutRepository(), reserveRepository());
         }
         return checkoutService;
     }
@@ -280,12 +279,41 @@ public class AppConfig {
                 }
             } catch (IOException e) {
                 makeDatafile("./data/checkouts");
-
             }
             checkoutRepository = new CheckoutRepository(checkouts, sequence());
         }
 
         return checkoutRepository;
+    }
+
+    private ReserveRepository reserveRepository() {
+        if (reserveRepository == null) {
+            Map<Long, Reserve> reserves = new LinkedHashMap<>();
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(
+                    new FileInputStream("./data/reserves"), StandardCharsets.UTF_8))) {
+
+                String line;
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+                while ((line = reader.readLine()) != null) {
+                    String[] split = line.split("\t");
+                    long reserveid = Long.parseLong(split[0]);
+                    String memberid = split[1];
+                    LocalDateTime time = LocalDateTime.parse(split[2], formatter);
+
+                    Reserve reserve = Reserve.builder()
+                            .bookid(reserveid)
+                            .userid(memberid)
+                            .reservedDate(time)
+                            .build();
+                    reserves.put(reserveid, reserve);
+                }
+            } catch (IOException e) {
+                makeDatafile("./data/reserves");
+            }
+            reserveRepository = new ReserveRepository(reserves);
+        }
+        return reserveRepository;
     }
 
     private void makeDatafile(String pathname) {
