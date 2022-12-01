@@ -17,7 +17,9 @@ import util.Sequence;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.LinkedHashMap;
@@ -307,13 +309,16 @@ public class AppConfig {
                     String[] split = line.split("\t");
                     long reserveid = Long.parseLong(split[0]);
                     String memberid = split[1];
-                    LocalDateTime time = LocalDateTime.parse(split[2], formatter);
+                    LocalDateTime reservedDate = LocalDateTime.parse(split[2], formatter);
 
-                    // todo 7일 지났으면 저장 안하도록 수정
+                    Period period = Period.between(reservedDate.toLocalDate(), LocalDate.now());
+                    if (period.getDays() > 7) {
+                        continue;
+                    }
                     Reserve reserve = Reserve.builder()
                             .bookid(reserveid)
                             .userid(memberid)
-                            .reservedDate(time)
+                            .reservedDate(reservedDate)
                             .build();
                     reserves.put(reserveid, reserve);
                 }
