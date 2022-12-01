@@ -74,7 +74,8 @@ public class AppConfig {
 
     private AdminService adminService() {
     	if (adminService == null) {
-        	adminService = new AdminService(bookRepository(), memberRepository(), checkoutRepository(), sequence());
+        	adminService = new AdminService(bookRepository(), memberRepository(),
+                    checkoutRepository(), reserveRepository(), sequence());
         }
     	return adminService;
     }
@@ -308,6 +309,7 @@ public class AppConfig {
                     String memberid = split[1];
                     LocalDateTime time = LocalDateTime.parse(split[2], formatter);
 
+                    // todo 7일 지났으면 저장 안하도록 수정
                     Reserve reserve = Reserve.builder()
                             .bookid(reserveid)
                             .userid(memberid)
