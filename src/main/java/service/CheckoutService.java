@@ -31,13 +31,6 @@ public class CheckoutService {
 
         final Member member = CurrentMember.getCurrentMember();
 
-		reserveRepository.findById(checkoutID)
-				.ifPresent(reserve -> {
-					if (!reserve.getUserid().equals(member.getUserid())) {
-						throw new ReserveException("이미 예약된 책입니다.");
-					}
-				});
-
 		if (!member.isPossible()) {//대출 가능 여부
         	if (member.getPossibleDate().isAfter(LocalDateTime.now())) {
         		throw new MemberException("사용자가 대출 불가능 상태입니다.");// 대출 불가능 시
@@ -50,6 +43,14 @@ public class CheckoutService {
 		if(!book.isActive()) {
 			throw new MemberException("대출 중 도서입니다");
 		}
+
+		reserveRepository.findById(checkoutID)
+				.ifPresent(reserve -> {
+					if (!reserve.getUserid().equals(member.getUserid())) {
+						throw new ReserveException("이미 예약된 책입니다.");
+					}
+					reserveRepository.deleteById(checkoutID);
+				});
   
         Checkout checkout = Checkout.builder()
                 .userid(member.getUserid())
