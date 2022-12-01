@@ -57,43 +57,42 @@ public class AppConfig {
         return mainPrompt;
     }
 
-    public CommandParser commandParser() {
+    private CommandParser commandParser() {
         if (commandParser == null) {
             commandParser = new CommandParser();
         }
         return commandParser;
     }
 
-    public ControllerFacade controllerFacade() {
+    private ControllerFacade controllerFacade() {
         if (controllerFacade == null) {
             controllerFacade = new ControllerFacade(loginController(), adminController(), memberController());
         }
         return controllerFacade;
     }
-   
-    public AdminService adminService() {
+
+    private AdminService adminService() {
     	if (adminService == null) {
         	adminService = new AdminService(bookRepository(), memberRepository(), checkoutRepository(), sequence());
         }
     	return adminService;
     }
-    
-   
-    public AdminController adminController() {
+
+    private AdminController adminController() {
         if (adminController == null) {
         	adminController = new AdminController(adminService());
         }
         return adminController;
     }
 
-    public LoginController loginController() {
+    private LoginController loginController() {
         if (loginController == null) {
             loginController = new LoginController(loginService(), signupService(), adminService());
         }
         return loginController;
     }
 
-    public MemberController memberController() {
+    private MemberController memberController() {
         if (memberController == null) {
             memberController = new MemberController(helpService(), checkoutService(), returnBookService(),
                     searchService(), myLoanService(), logoutService());
@@ -101,63 +100,63 @@ public class AppConfig {
         return memberController;
     }
 
-    public CheckoutService checkoutService() {
+    private CheckoutService checkoutService() {
         if (checkoutService == null) {
             checkoutService = new CheckoutService(bookRepository(), checkoutRepository(), reserveRepository());
         }
         return checkoutService;
     }
 
-    public HelpService helpService() {
+    private HelpService helpService() {
         if (helpService == null) {
             helpService = new HelpService();
         }
         return helpService;
     }
 
-    public LoginService loginService() {
+    private LoginService loginService() {
         if (loginService == null) {
             loginService = new LoginService(memberRepository());
         }
         return loginService;
     }
 
-    public LogoutService logoutService() {
+    private LogoutService logoutService() {
         if (logoutService == null) {
             logoutService = new LogoutService();
         }
         return logoutService;
     }
 
-    public MyLoanService myLoanService() {
+    private MyLoanService myLoanService() {
         if (myLoanService == null) {
             myLoanService = new MyLoanService(checkoutRepository(), bookRepository());
         }
         return myLoanService;
     }
 
-    public ReturnBookService returnBookService() {
+    private ReturnBookService returnBookService() {
         if (returnBookService == null) {
             returnBookService = new ReturnBookService(checkoutRepository(), memberRepository(), bookRepository());
         }
         return returnBookService;
     }
 
-    public SearchService searchService() {
+    private SearchService searchService() {
         if (searchService == null) {
             searchService = new SearchService(bookRepository());
         }
         return searchService;
     }
 
-    public SignupService signupService() {
+    private SignupService signupService() {
         if (signupService == null) {
             signupService = new SignupService(memberRepository());
         }
         return signupService;
     }
 
-    public Sequence sequence() {
+    private Sequence sequence() {
         if (sequence == null) {
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(
                     new FileInputStream("./data/next_sequence"), StandardCharsets.UTF_8))) {
@@ -174,7 +173,7 @@ public class AppConfig {
         return sequence;
     }
 
-    public MemberRepository memberRepository() {
+    private MemberRepository memberRepository() {
         if (memberRepository == null) {
             Map<String, Member> members = new LinkedHashMap<>() {{
                 Member admin = Member.builder()
@@ -226,7 +225,7 @@ public class AppConfig {
         return memberRepository;
     }
 
-    public BookRepository bookRepository() {
+    private BookRepository bookRepository() {
         if (bookRepository == null) {
             Map<Long, Book> books = new LinkedHashMap<>();
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(
@@ -253,7 +252,7 @@ public class AppConfig {
         return bookRepository;
     }
 
-    public CheckoutRepository checkoutRepository() {
+    private CheckoutRepository checkoutRepository() {
         if (checkoutRepository == null) {
             Map<Long, Checkout> checkouts = new LinkedHashMap<>();
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(
