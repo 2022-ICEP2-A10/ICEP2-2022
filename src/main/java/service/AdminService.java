@@ -2,6 +2,7 @@ package service;
 
 import exceptions.ArgumentException;
 import lombok.RequiredArgsConstructor;
+import repository.ReserveRepository;
 import util.CurrentPrompt;
 import domain.PromptStatusType;
 import domain.UserType;
@@ -24,6 +25,7 @@ public class AdminService {
 	private final BookRepository bookRepository;
 	private final MemberRepository memberRepository;
 	private final CheckoutRepository checkoutRepository;
+	private final ReserveRepository reserveRepository;
 	private final Sequence sequence;
 	
 	// help
@@ -131,6 +133,7 @@ public class AdminService {
 		bookRepository.destroy();
 		checkoutRepository.destroy();
 		memberRepository.destroy();
+		reserveRepository.destroy();
 		sequence.destroy();
 	}
 }
