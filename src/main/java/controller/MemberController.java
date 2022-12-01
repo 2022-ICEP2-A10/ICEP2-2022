@@ -16,6 +16,7 @@ public class MemberController {
     private final SearchService searchService;
     private final MyLoanService myloanService;
     private final LogoutService logoutService;
+    private final ReserveService reserveService;
 
     public void execute(String command, String[] args) {
         switch (command) {
@@ -43,6 +44,11 @@ public class MemberController {
                 logout(args);
                 break;
             }
+            case "reserve": {
+                reserve(args);
+                break;
+            }
+
             default:
                 throw new CommandException();
         }
@@ -101,5 +107,12 @@ public class MemberController {
         }
     	
     	logoutService.logout();
+    }
+
+    private void reserve(String[] args) {
+        if (args.length != 1) {
+            throw new ArgumentException("비정상적인 입력입니다.\n인자의 개수가 잘못되었습니다.");
+        }
+        reserveService.reserve(args);
     }
 }
