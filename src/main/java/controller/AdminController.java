@@ -31,6 +31,10 @@ public class AdminController {
             	logout(args);
             	break;
             }
+            case "reserves":{
+            	reserves(args);
+            	break;
+            }
             default:
                 throw new CommandException();
         }
@@ -38,7 +42,6 @@ public class AdminController {
 
     private void help(String[] args) {
     	adminService.librarian_help(args);
-
     }
 
     private void register(String[] args) {
@@ -55,7 +58,10 @@ public class AdminController {
     private void logout(String[] args) {
     	adminService.logout(args);
     }
+    private void reserves(String[] args) {
+    	adminService.reserves(args);
+    }
 
-
+    
 
 }

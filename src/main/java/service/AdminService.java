@@ -2,9 +2,9 @@ package service;
 
 import exceptions.ArgumentException;
 import lombok.RequiredArgsConstructor;
-import repository.ReserveRepository;
 import util.CurrentPrompt;
 import domain.PromptStatusType;
+import domain.Reserve;
 import domain.UserType;
 import domain.Book;
 import domain.Checkout;
@@ -12,6 +12,7 @@ import domain.Member;
 import repository.BookRepository;
 import repository.CheckoutRepository;
 import repository.MemberRepository;
+import repository.ReserveRepository;
 import util.Sequence;
 
 import java.util.*;
@@ -38,6 +39,7 @@ public class AdminService {
     		System.out.println("- register [도서 제목]: 도서를 등록합니다.");
     		System.out.println("- members : 회원정보를 출력합니다.");
     		System.out.println("- loans : 대출정보를 출력합니다.");
+    		System.out.println("- reserves : 예약 정보를 출력합니다.");
     		System.out.println("- logout : 로그아웃 합니다.");
         }
 	}
@@ -92,7 +94,7 @@ public class AdminService {
 					if (mem.isPossible()) {
 						System.out.println(userid + ": 대출가능");
 					} else {
-						System.out.println(userid + ": 대출불가능 ~ " + time);
+						System.out.println(userid + ": 대출,예약 불가능 ~ " + time);
 					}
 				}	
 			}
@@ -133,7 +135,42 @@ public class AdminService {
 		bookRepository.destroy();
 		checkoutRepository.destroy();
 		memberRepository.destroy();
-		reserveRepository.destroy();
 		sequence.destroy();
+	}
+
+	public void reserves(String[] args) {
+		// TODO Auto-generated method stub
+		if (args.length != 0) {
+			throw new ArgumentException();
+        }
+		else {
+			List<Reserve> reserves=reserveRepository.findAll();	
+			System.out.println("-memberid : bookid(예약 만료 날짜)-");
+			HashMap<String, ArrayList<Reserve>> map = new HashMap<>();
+			for (int i = 0; i < reserves.size(); i++) {
+				Reserve ch = reserves.get(i);
+				if (map.containsKey(ch.getUserid())) {
+					ArrayList<Reserve> ar = map.get(ch.getUserid());
+					ar.add(ch);
+					
+				} else {
+					map.put(ch.getUserid(), new ArrayList<Reserve>() {
+						{
+							add(ch);
+						}
+					});
+				}
+			}
+			for (Entry<String, ArrayList<Reserve>> entrySet : map.entrySet()) {
+				String userid = entrySet.getKey();
+				ArrayList<Reserve> ar = entrySet.getValue();
+				System.out.print(userid + ":");
+				for (int i = 0; i < ar.size()-1; i++) {
+					Reserve now = ar.get(i);
+					System.out.print(now.getBookid()+"("+now.getReservedDate() + "),");
+				}
+				System.out.println(ar.get(ar.size()-1).getBookid()+"("+ar.get(ar.size()-1).getReservedDate() + ")");
+			}
+		}
 	}
 }
