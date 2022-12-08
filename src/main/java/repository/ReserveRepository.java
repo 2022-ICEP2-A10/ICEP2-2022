@@ -23,6 +23,13 @@ public class ReserveRepository implements FileBaseDatabase {
         reserves.put(reserve.getBookid(), reserve);
     }
     
+    public List<Reserve> findAllByUserid(String userid) {
+        return reserves.values()
+                .stream()
+                .filter(reserve -> reserve.getUserid().equals(userid))
+                .collect(Collectors.toList());
+    }
+    
     public Optional<Reserve> findById(long bookid) {
         return Optional.ofNullable(reserves.get(bookid));
     }
