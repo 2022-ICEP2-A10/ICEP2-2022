@@ -49,6 +49,11 @@ public class MemberController {
                 reserve(args);
                 break;
             }
+                
+            case "myreserve": {
+            	myreserve(args);
+            	break;
+            }
 
             default:
                 throw new CommandException();
@@ -116,6 +121,17 @@ public class MemberController {
         }
         try {
             reserveService.reserve(args);
+        } catch (MemberException | ReserveException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    private void myreserve(String[] args) {
+    	if (args.length != 0) {
+            throw new ArgumentException("비정상적인 입력입니다.\n인자의 개수가 잘못되었습니다.");
+        }
+    	try {
+            reserveService.myreserve(args);
         } catch (MemberException | ReserveException e) {
             System.out.println(e.getMessage());
         }
