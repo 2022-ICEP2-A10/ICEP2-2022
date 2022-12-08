@@ -52,4 +52,29 @@ public class ReserveService {
                 .build();
         reserveRepository.save(reserve);
     }
+    
+    public void myreserve(String[] args) {
+		List<Reserve> reserve = reserveRepository.findAllByUserid(CurrentMember.getCurrentMember().getUserid());
+
+		System.out.println("현재 예약 중인 도서의 목록입니다.");
+		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+		for (Reserve r : reserve) {
+			Optional<Book> book = bookRepository.findById(r.getBookid());
+			LocalDateTime d = r.getReservedDate();
+			LocalDateTime expire = r.getReservedDate().plusDays(7);
+			String active;
+			if (book.get().isActive()) {
+				active = "O";
+			} else {
+				active = "X";
+			}
+			String str = r.getBookid() + " " + book.get().getTitle() + "\n" 
+					+ "반납 여부: " + active + "\n"
+					+ "예약 날짜: " + d.format(dateTimeFormatter) + "\n"
+					+ "예약 만료 날짜: " + expire.format(dateTimeFormatter);
+
+			System.out.println(str);
+		}
+	}
 }
