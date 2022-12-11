@@ -8,6 +8,7 @@ import exceptions.MemberException;
 import exceptions.ReserveException;
 import lombok.RequiredArgsConstructor;
 import repository.BookRepository;
+import repository.CheckoutRepository;
 import repository.ReserveRepository;
 import util.CurrentMember;
 
@@ -21,6 +22,8 @@ public class ReserveService {
 
     private final BookRepository bookRepository;
     private final ReserveRepository reserveRepository;
+
+    private final CheckoutRepository checkoutRepository;
 
     public void reserve(String[] args) {
         long reserveId;
@@ -46,6 +49,14 @@ public class ReserveService {
         reserveRepository.findById(reserveId)
                 .ifPresent(reserve -> {
                     throw new ReserveException("이미 예약된 책입니다.");
+                });
+
+        checkoutRepository.findAllByUserid(currentMember.getUserid())
+                .stream()
+                .filter(checkout -> checkout.getBookid().equals(reserveId))
+                .findAny()
+                .ifPresent(checkout -> {
+                    throw new ReserveException("본인이 대출한 책은 예약할 수 없습니다!");
                 });
 
         Reserve reserve = Reserve.builder()

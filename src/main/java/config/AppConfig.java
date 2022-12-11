@@ -106,7 +106,7 @@ public class AppConfig {
 
     private ReserveService reserveService() {
         if (reserveService == null) {
-            reserveService = new ReserveService(bookRepository(), reserveRepository());
+            reserveService = new ReserveService(bookRepository(), reserveRepository(), checkoutRepository());
         }
         return reserveService;
     }
