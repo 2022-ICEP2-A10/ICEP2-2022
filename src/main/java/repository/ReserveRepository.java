@@ -29,6 +29,13 @@ public class ReserveRepository implements FileBaseDatabase {
         reserves.remove(bookid);
     }
 
+    public List<Reserve> findAllByUserid(String userid) {
+        return reserves.values()
+                .stream()
+                .filter(reserve -> reserve.getUserid().equals(userid))
+                .collect(Collectors.toList());
+    }
+    
     @Override
     public void destroy() {
         try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
