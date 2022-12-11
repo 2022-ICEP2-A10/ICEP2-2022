@@ -1,26 +1,21 @@
 package service;
 
 import domain.Book;
-import domain.Member;
+import domain.Reserve;
 import exceptions.MemberException;
 import exceptions.ArgumentException;
 import lombok.RequiredArgsConstructor;
-import java.time.LocalDateTime;
-import java.time.Period;
 import java.util.List;
 
-import domain.Checkout;
-import repository.CheckoutRepository;
 import repository.BookRepository;
-import repository.MemberRepository;
+import repository.ReserveRepository;
 import util.CurrentMember;
 
 @RequiredArgsConstructor
 public class CancelService {
 
-    private final ReserveRepository reserveRepository;
-    private final MemberRepository memberRepository;
     private final BookRepository bookRepository;
+    private final ReserveRepository reserveRepository;
     
     public void cancel(String[] args) {
     	long cancelID;
@@ -32,11 +27,9 @@ public class CancelService {
 
         List<Reserve> reserves = reserveRepository.findAllByUserid(CurrentMember.getCurrentMember().getUserid());
 
-        long bookID = 0;
-
         for (Reserve reserve : reserves) {
             if (cancelID == reserve.getBookid()) {
-            	reserveRepository.deleteById(reserve.getId());
+            	reserveRepository.deleteById(reserve.getBookid());
 
                 Book book = bookRepository.findById(cancelID).get();
                 book.setActive(true);
