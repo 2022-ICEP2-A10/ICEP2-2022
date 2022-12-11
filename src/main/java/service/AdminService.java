@@ -18,6 +18,7 @@ import util.Sequence;
 import java.util.*;
 import java.util.Map.Entry;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 @RequiredArgsConstructor
@@ -162,15 +163,16 @@ public class AdminService {
 					});
 				}
 			}
+			DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 			for (Entry<String, ArrayList<Reserve>> entrySet : map.entrySet()) {
 				String userid = entrySet.getKey();
 				ArrayList<Reserve> ar = entrySet.getValue();
 				System.out.print(userid + ":");
 				for (int i = 0; i < ar.size()-1; i++) {
 					Reserve now = ar.get(i);
-					System.out.print(now.getBookid()+"("+now.getReservedDate() + "),");
+					System.out.print(now.getBookid()+"("+now.getReservedDate().format(dateTimeFormatter)+ "),");
 				}
-				System.out.println(ar.get(ar.size()-1).getBookid()+"("+ar.get(ar.size()-1).getReservedDate() + ")");
+				System.out.println(ar.get(ar.size()-1).getBookid()+"("+ar.get(ar.size()-1).getReservedDate().format(dateTimeFormatter) + ")");
 			}
 		}
 	}

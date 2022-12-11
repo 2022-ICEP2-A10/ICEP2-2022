@@ -1,3 +1,4 @@
 admin	admin	false	null	ADMIN
 user1	user1	true	null	MEMBER
 user2	user2	true	null	MEMBER
+abcd	abcd	true	null	MEMBER
