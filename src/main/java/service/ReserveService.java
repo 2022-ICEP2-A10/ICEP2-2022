@@ -33,17 +33,17 @@ public class ReserveService {
             throw new ArgumentException("비정상적인 입력입니다.");
         }
 
-        Book book = bookRepository.findById(reserveId)
-                .orElseThrow(() -> new MemberException("등록되어 있지 않은 책입니다."));
-        if (book.isActive()) {
-            throw new ReserveException("대출 가능한 책입니다.");
-        }
-
         Member currentMember = CurrentMember.getCurrentMember();
         if (!currentMember.isPossible()) {
             if (currentMember.getPossibleDate().isAfter(LocalDateTime.now())) {
                 throw new MemberException("사용자가 대출/예약 불가능 상태입니다.");
             }
+        }
+
+        Book book = bookRepository.findById(reserveId)
+                .orElseThrow(() -> new MemberException("등록되어 있지 않은 책입니다."));
+        if (book.isActive()) {
+            throw new ReserveException("대출 가능한 책입니다.");
         }
 
         reserveRepository.findById(reserveId)
