@@ -31,9 +31,6 @@ public class CancelService {
             if (cancelID == reserve.getBookid()) {
             	reserveRepository.deleteById(reserve.getBookid());
 
-                Book book = bookRepository.findById(cancelID).get();
-                book.setActive(true);
-                bookRepository.save(book);
                 System.out.println("예약이 취소되었습니다.");
                 return;
             }

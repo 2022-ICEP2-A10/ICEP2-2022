@@ -9,5 +9,8 @@ public class HelpService {
 		System.out.println("return [식별자] : 도서를 반납합니다.");
 		System.out.println("myloan : 내 대출 목록을 출력합니다.");
 		System.out.println("logout : 회원 프롬프트를 종료하고 로그인 프롬프트로 이동합니다.");
+		System.out.println("reserve [식별자] : 도서를 7일간 예약합니다.");
+		System.out.println("cancel [식별자] : 예약한 도서를 예약 취소합니다.");
+		System.out.println("myreserve : 내 예약 목록을 출력합니다.");
 	}
 }
