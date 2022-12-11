@@ -13,9 +13,8 @@ import repository.BookRepository;
 import repository.ReserveRepository;
 import util.CurrentMember;
 
-import java.time.LocalDate;
+import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.Period;
 
 @RequiredArgsConstructor
 public class CheckoutService {
@@ -49,8 +48,8 @@ public class CheckoutService {
 
 		reserveRepository.findById(checkoutID)
 				.ifPresent(reserve -> {
-					Period period = Period.between(reserve.getReservedDate().toLocalDate(), LocalDate.now());
-					if (period.getDays() <= 7 && !reserve.getUserid().equals(member.getUserid())) {
+					long betweenDays = Duration.between(reserve.getReservedDate(), LocalDateTime.now()).toDays();
+					if (betweenDays <= 7 && !reserve.getUserid().equals(member.getUserid())) {
 						throw new ReserveException("이미 예약된 책입니다.");
 					}
 					reserveRepository.deleteById(checkoutID);

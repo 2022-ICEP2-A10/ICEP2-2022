@@ -5,8 +5,9 @@ import domain.Member;
 import exceptions.MemberException;
 import exceptions.ArgumentException;
 import lombok.RequiredArgsConstructor;
+
+import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.util.List;
 
 import domain.Checkout;
@@ -40,12 +41,12 @@ public class ReturnBookService {
                 LocalDateTime returnDateTime = LocalDateTime.now();//현재 시각 = 반납 일자
                 LocalDateTime checkoutDateTime = checkout.getCheckoutDate();// 대출 당시 시각
 
-                Period period = Period.between(checkoutDateTime.toLocalDate(), returnDateTime.toLocalDate());
+                long betweenDays = Duration.between(checkoutDateTime, returnDateTime).toDays();
 
-                if (period.getDays() > 7) {//시간 차가 7일보다 크면(무조건 반납 일자가 나중이어야 함) 연체
+                if (betweenDays > 7) {//시간 차가 7일보다 크면(무조건 반납 일자가 나중이어야 함) 연체
                     Member member = CurrentMember.getCurrentMember();
                     member.setPossible(false);
-                    member.setPossibleDate(returnDateTime.plusDays(period.getDays() - 7));
+                    member.setPossibleDate(returnDateTime.plusDays(betweenDays - 7));
                     memberRepository.save(member);
                     System.out.println("반납된 도서가 연체되었습니다.");
                 }
