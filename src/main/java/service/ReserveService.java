@@ -54,6 +54,8 @@ public class ReserveService {
                 .reservedDate(LocalDateTime.now())
                 .build();
         reserveRepository.save(reserve);
+
+        System.out.println("예약이 완료되었습니다.");
     }
     
     public void myreserve(String[] args) {
