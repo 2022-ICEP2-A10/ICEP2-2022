@@ -18,7 +18,8 @@ public class MemberController {
     private final MyLoanService myloanService;
     private final LogoutService logoutService;
     private final ReserveService reserveService;
-
+    private final CancelService cancelService;
+    
     public void execute(String command, String[] args) {
         switch (command) {
             case "help": {
@@ -51,8 +52,13 @@ public class MemberController {
             }
                 
             case "myreserve": {
-            	myreserve(args);
-            	break;
+                myreserve(args);
+                break;
+            }
+
+            case "cancel": {
+                cancel(args);
+                break;
             }
 
             default:
@@ -127,11 +133,22 @@ public class MemberController {
     }
     
     private void myreserve(String[] args) {
-    	if (args.length != 0) {
+        if (args.length != 0) {
             throw new ArgumentException("비정상적인 입력입니다.\n인자의 개수가 잘못되었습니다.");
         }
-    	try {
+        try {
             reserveService.myreserve(args);
+        } catch (MemberException | ReserveException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void cancel(String[] args) {
+    	if (args.length != 1) {
+            throw new ArgumentException("비정상적인 입력입니다.\n인자의 개수가 잘못되었습니다.");
+        }
+        try {
+            cancelService.cancel(args);
         } catch (MemberException | ReserveException e) {
             System.out.println(e.getMessage());
         }
