@@ -135,6 +135,7 @@ public class AdminService {
 		bookRepository.destroy();
 		checkoutRepository.destroy();
 		memberRepository.destroy();
+		reserveRepository.destroy();
 		sequence.destroy();
 	}
 
