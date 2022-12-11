@@ -17,9 +17,8 @@ import util.Sequence;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
+import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.LinkedHashMap;
@@ -311,8 +310,8 @@ public class AppConfig {
                     String memberid = split[1];
                     LocalDateTime reservedDate = LocalDateTime.parse(split[2], formatter);
 
-                    Period period = Period.between(reservedDate.toLocalDate(), LocalDate.now());
-                    if (period.getDays() > 7) {
+                    long betweenDays = Duration.between(reservedDate, LocalDateTime.now()).toDays();
+                    if (betweenDays > 7) {
                         continue;
                     }
                     Reserve reserve = Reserve.builder()
