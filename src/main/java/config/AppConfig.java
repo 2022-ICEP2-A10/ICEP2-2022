@@ -43,6 +43,7 @@ public class AppConfig {
     private SearchService searchService;
     private SignupService signupService;
     private ReserveService reserveService;
+    private CancelService cancelService;
     
     private MemberRepository memberRepository;
     private BookRepository bookRepository;
@@ -99,7 +100,7 @@ public class AppConfig {
     private MemberController memberController() {
         if (memberController == null) {
             memberController = new MemberController(helpService(), checkoutService(), returnBookService(),
-                    searchService(), myLoanService(), logoutService(), reserveService());
+                    searchService(), myLoanService(), logoutService(), reserveService(), cancelService());
         }
         return memberController;
     }
@@ -111,6 +112,13 @@ public class AppConfig {
         return reserveService;
     }
 
+	private CancelService cancelService() {
+        if (cancelService == null) {
+        	cancelService = new CancelService(bookRepository(), reserveRepository());
+        }
+        return cancelService;
+    }	
+	
     private CheckoutService checkoutService() {
         if (checkoutService == null) {
             checkoutService = new CheckoutService(bookRepository(), checkoutRepository(), reserveRepository());
