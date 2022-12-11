@@ -18,7 +18,8 @@ public class MemberController {
     private final MyLoanService myloanService;
     private final LogoutService logoutService;
     private final ReserveService reserveService;
-
+    private final CancelService cancelService;
+    
     public void execute(String command, String[] args) {
         switch (command) {
             case "help": {
@@ -130,7 +131,7 @@ public class MemberController {
         }
     	
         try {
-            CancelService.cancel(args);
+            cancelService.cancel(args);
         } catch (MemberException | ReserveException e) {
             System.out.println(e.getMessage());
         }
